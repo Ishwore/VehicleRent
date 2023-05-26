@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+}
+.nav-ul li{
+  padding: 10px;
+  display: inline-block;
+}
+.nav-ul li a{
+  color: white;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.nav-ul  {
+  padding: 5px;
+  margin: 0;
+  background-color: skyblue;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  background-color: skyblue;
+}
+
+.inputBox{
+  margin: 25px;
+  padding: 7px;
+  width: 300px;
+  border: 1px solid skyblue;
+}
+
+.appButton{
+  padding: 10px;
+  width: 150px;
+  background-color: skyblue;
+  border: 1px solid;
+  cursor: pointer;
+}
