@@ -1,4 +1,4 @@
-const asyncHandler =require('express-async-handler')
+const asyncHandler = require('express-async-handler')
 const Product = require('../../models/productModel')
 
 // @desc    Fetch all products
@@ -10,11 +10,11 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const keyword = req.query.keyword
     ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: 'i',
-        },
-      }
+      name: {
+        $regex: req.query.keyword,
+        $options: 'i',
+      },
+    }
     : {}
 
   const count = await Product.countDocuments({ ...keyword })
@@ -61,7 +61,7 @@ const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     name: 'Sample name',
     price: 0,
-     user: req.user._id,
+    user: req.user._id,
     image: '/images/sample.jpg',
     registrationNo: '4444',
     category: 'Sample category',
@@ -157,7 +157,7 @@ const getTopProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
-module.exports= {
+module.exports = {
   getProducts,
   getProductById,
   deleteProduct,

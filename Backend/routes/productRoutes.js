@@ -8,7 +8,7 @@ const {
   updateProduct,
   createProductReview,
   getTopProducts,
-}= require('../data/controllers/productController')
+} = require('../data/controllers/productController')
 const { protect, admin } = require('../middleware/authMiddleware')
 
 router.route('/').get(getProducts).post(protect, admin, createProduct)
@@ -20,4 +20,4 @@ router
   .delete(protect, admin, deleteProduct)
   .put(protect, admin, updateProduct)
 
-module.exports=router;
+module.exports = router;

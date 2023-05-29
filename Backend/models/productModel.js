@@ -31,9 +31,9 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    registrationNo:{
-      type:String,
-      required:true,
+    registrationNo: {
+      type: String,
+      required: true,
     },
     // brand: {
     //   type: String,
@@ -76,4 +76,4 @@ const productSchema = mongoose.Schema(
 
 const Product = mongoose.model('Product', productSchema)
 
-module.exports= Product;
+module.exports = Product;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -33,25 +33,25 @@ const Login = () => {
         }
     }
     return (
-        <div  className="inline-grid mt-32 rounded-3xl w-96  justify-center bg-stone-200">
+        <div className="inline-grid mt-32 rounded-3xl w-96  justify-center bg-stone-200">
             <div className=" mt-4">
                 <h1 class='text-center font-extrabold text-2xl text-stone-600 '>Login</h1>
             </div>
             <div className=" inline-grid mt-2">
                 <label class="text-left font-bold text-stone-500 ">*Email*</label>
-                <input class=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 " type="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Enter your Email" required/>
+                <input class=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 " type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email" required />
             </div>
             <div className=" inline-grid mt-2">
                 <label class="text-left font-bold text-stone-500">*Password*</label>
-                <input class=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" required/>
+                <input class=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" required />
             </div>
-            <button onClick={collectData} class=' w-72 rounded-full h-12 text-center font-semibold mt-8 mb-3 bg-stone-400 hover:bg-stone-500 hover:text-lg hover:font-bold'  >Login</button>
+            <button onClick={collectData} class=' w-72 rounded-xl bg-green-700 h-12 text-white text-center font-semibold mt-8 mb-3 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full'  >Login</button>
             <div className="mt-2 mb-6">
-                <div className="flex"> 
-                    <p  className="ml-6">I have allready account ?</p> 
-                    <Link  className="underline ml-1 " to="/signup" >SignUp</Link>
+                <div className="flex">
+                    <p className="ml-6">I have allready account ?</p>
+                    <Link className="underline ml-1 " to="/signup" >SignUp</Link>
                 </div>
-            </div>  
+            </div>
         </div>
 
     )

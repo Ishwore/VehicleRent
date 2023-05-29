@@ -12,7 +12,6 @@ const ProfileMenu = () => {
         localStorage.clear();
         navigate('/');
     }
-
     const menuRef = useRef();
     const imgRef = useRef();
     window.addEventListener('click', (e) => {
@@ -40,8 +39,8 @@ const ProfileMenu = () => {
                             //      className="p-2 text-lg cursor-pointer rounded-2xl hover:bg-slate-400 hover:font-semibold" key = {menu}>{menu}</li>
                             // ))
                             <>
-                                <li><Link  to='/profile'><button className="text-base cursor-pointer rounded-2xl w-60 h-12 hover:bg-slate-400 hover:font-semibold">{JSON.parse(auth).name}</button></Link></li>
-                                <li><Link  to='/settings'><button className="text-base cursor-pointer rounded-2xl w-60 h-12 hover:bg-slate-400 hover:font-semibold" >Settings</button></Link></li>
+                                <li><Link to='/profile'><button className="text-base cursor-pointer rounded-2xl w-60 h-12 hover:bg-slate-400 hover:font-semibold">{JSON.parse(auth).name}</button></Link></li>
+                                <li><Link to='/settings'><button className="text-base cursor-pointer rounded-2xl w-60 h-12 hover:bg-slate-400 hover:font-semibold" >Settings</button></Link></li>
                                 <li><button className="text-base cursor-pointer rounded-2xl w-60 hover:bg-slate-400 h-12 hover:font-semibold" onClick={logout} >Logout</button></li>
 
                             </>}

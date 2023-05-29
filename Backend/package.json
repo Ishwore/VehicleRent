@@ -7,7 +7,6 @@
     "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node seeder",
     "data:destroy": "node seeder -d"
   },
