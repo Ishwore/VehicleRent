@@ -27,12 +27,6 @@ const Navbar = () => {
                 <SearchBox />
             </div>
             <div className="flex">
-                < div className="pt-2 font-semibold text-white  ">
-                    <ul className="flex" >
-                        <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
-                        <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
-                    </ul>
-                </div>
                 {auth && !(JSON.parse(auth).isAdmin) && (<>
                     <img
                         className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" />
@@ -45,6 +39,8 @@ const Navbar = () => {
                 </>)} {!auth && (
                     <div className="pt-2 font-semibold text-white  ">
                         <ul className="flex" >
+                            <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
+                            <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
                             <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/login">Login</Link></li></button>
                             <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/signup">SignUp</Link></li></button>
                         </ul>
@@ -56,6 +52,7 @@ const Navbar = () => {
                         <div className="pt-2 font-semibold text-white  ">
                             <ul className="flex" >
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/addvehicle">AddVehicle</Link></li></button>
+                                <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/userlist">UserList</Link></li></button>
                             </ul>
                         </div>
                         <img

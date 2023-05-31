@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+//import Message from '../components/Message'
 import { Link, useNavigate } from 'react-router-dom';
 
 
@@ -13,7 +14,7 @@ const Login = () => {
         }
     })
     const collectData = async () => {
-        console.warn("email,password", email, password);
+        // console.warn("email,password", email, password);
         const result = await fetch("http://localhost:5000/api/users/login", {
             method: 'post',
             body: JSON.stringify({ email, password }),
@@ -22,15 +23,15 @@ const Login = () => {
             },
         });
         const resultData = await result.json();
-        console.warn(resultData);
-        if (resultData) {
+        // console.warn(resultData);
+        if (resultData.name) {
             localStorage.setItem("user", JSON.stringify(resultData));
             navigate("/");
+        } else {
+            alert("Invalid Email and Password")
+        }
 
-        }
-        else {
-            alert("Please enter correct details");
-        }
+
     }
     return (
         <div className="inline-grid mt-32 rounded-3xl w-96  justify-center bg-stone-200">

@@ -8,6 +8,7 @@ import SignUp from './screen/SignUp';
 import Login from './screen/Login';
 import AddVehicle from './screen/Vehicle';
 import ContactUs from './screen/ContactUs';
+import UserList from './screen/UserList';
 function App() {
   return (
     <div class="text-center">
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route element={<PrivateComponent />}>
             <Route path='/addvehicle' element={<AddVehicle />} />
+            <Route path='/userlist' element={<UserList />} />
           </Route>
           <Route path='/' element={<h1>Product Listing Componet</h1>} />
           <Route path='/signup' element={<SignUp />} />

@@ -1,4 +1,4 @@
-const express=require('express');
+const express = require('express');
 const router = express.Router()
 const {
   authUser,
@@ -10,9 +10,9 @@ const {
   getUserById,
   updateUser,
 } = require('../data/controllers/userController.js');
-const { protect, admin }=require('../middleware/authMiddleware.js');
+const { protect, admin } = require('../middleware/authMiddleware.js');
 
-router.route('/').post(registerUser).get(protect, admin, getUsers)
+router.route('/').post(registerUser).get(getUsers)
 router.post('/login', authUser)
 router
   .route('/profile')
@@ -24,4 +24,4 @@ router
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser)
 
-module.exports=router;
+module.exports = router;

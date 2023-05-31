@@ -1,6 +1,6 @@
-const asyncHandler=require('express-async-handler');
-const generateToken=require('../../utils/generateToken.js');
-const User=require('../../models/userModel.js');
+const asyncHandler = require('express-async-handler');
+const generateToken = require('../../utils/generateToken.js');
+const User = require('../../models/userModel.js');
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -15,7 +15,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-       isAdmin: user.isAdmin,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     })
   } else {
@@ -28,7 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password} = req.body
+  const { name, email, password } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -48,7 +48,6 @@ const registerUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      // isAdmin: user.isAdmin,
       token: generateToken(user._id),
     })
   } else {
@@ -86,7 +85,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
-    user.address= req.body.address || user.address
+    user.address = req.body.address || user.address
     if (req.body.password) {
       user.password = req.body.password
     }
@@ -162,7 +161,7 @@ const updateUser = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      address : updateUser.address,
+      address: updateUser.address,
       isAdmin: updatedUser.isAdmin,
     })
   } else {
@@ -171,7 +170,7 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports ={
+module.exports = {
   authUser,
   registerUser,
   getUserProfile,
