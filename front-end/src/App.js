@@ -11,7 +11,7 @@ import ContactUs from './screen/ContactUs';
 import UserList from './screen/UserList';
 function App() {
   return (
-    <div class="text-center">
+    <div className="text-center">
       <BrowserRouter>
         <Nav />
         <Routes>

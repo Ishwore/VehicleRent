@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-
+import React from "react";
+// , { useState, useEffect }
 const UserList = () => {
-    const [users, setUsers] = useState([]);
+    // const [users, setUsers] = useState([]);
 
 
-    useEffect(() => {
-        getUsers();
-    })
-    const getUsers = async () => {
-        const result = await fetch('http://localhost:5000/api/users', {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    // useEffect(() => {
+    //     getUsers();
+    // })
+    // const getUsers = async () => {
+    //     const result = await fetch('http://localhost:5000/api/users', {
+    //         method: 'get',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
 
-        });
-        const resultData = result.json();
-        setUsers(resultData);
-    }
-    console.warn("users", users);
+    //     });
+    //     const resultData = result.json();
+    //     setUsers(resultData);
+    // }
+    // console.warn("users", users);
 
     return (
         <form className="inline-grid mt-28 rounded-3xl  justify-center bg-stone-200">
             <div className=" mt-2">
-                <h1 class='text-center font-bold text-2xl text-stone-600 '>Add Vehicle</h1>
+                <h1 className='text-center font-bold text-2xl text-stone-600 '>Add Vehicle</h1>
             </div>
             <div>
                 <table className='border'>
