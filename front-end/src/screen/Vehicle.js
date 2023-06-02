@@ -22,7 +22,7 @@ const AddVehicle = () => {
             },
         });
         const resultData = await result.json();
-        localStorage.setItem("vehicle", JSON.stringify(resultData));
+        // localStorage.setItem("vehicle", JSON.stringify(resultData));
         console.warn(resultData);
         navigate('/addvehicle');
     }

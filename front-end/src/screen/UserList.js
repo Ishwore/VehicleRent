@@ -32,23 +32,23 @@ const UserList = () => {
                 <table className='border border-collapse my-5'>
                     <thead>
                         <tr>
-                            <th className='px-4 border'>User ID</th>
-                            <th className='px-4 border'>User Name</th>
-                            <th className='px-4 border'>Email</th>
-                            <th className='px-4 border'>isAdmin</th>
-                            <th className='px-4 border'>Password</th>
-                            <th className='px-4 border'>Actions</th>
+                            <th className='px-4 border border-slate-700'>User ID</th>
+                            <th className='px-4 border border-slate-700'>User Name</th>
+                            <th className='px-4 border border-slate-700'>Email</th>
+                            <th className='px-4 border border-slate-700'>isAdmin</th>
+                            <th className='px-4 border border-slate-700'>Password</th>
+                            <th className='px-4 border border-slate-700'>Actions</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm">
                         {resultData.current.map((result) => (
                             <tr key={result._id}>
-                                <td className='px-4 border'>{result._id}</td>
-                                <td className='px-4 border'>{result.name}</td>
-                                <td className='px-4 border'>{result.email}</td>
-                                <td className='px-4 border'>{result.isAdmin ? "Yes" : "No"}</td>
-                                <td className='px-4 border'>{result.password}</td>
-                                <td className='px-4 border text-white'>
+                                <td className='px-4 border border-slate-700'>{result._id}</td>
+                                <td className='px-4 border border-slate-700'>{result.name}</td>
+                                <td className='px-4 border border-slate-700'>{result.email}</td>
+                                <td className='px-4 border border-slate-700'>{result.isAdmin ? "Yes" : "No"}</td>
+                                <td className='px-4 border border-slate-700'>{result.password}</td>
+                                <td className='px-4 border border-slate-700 text-white'>
                                     <button className='mx-2 bg-stone-600 rounded-xl px-4 font-medium hover:bg-stone-700 hover:font-bold'>Edit</button>
                                     <button className='mx-2 bg-red-600 rounded-xl px-4 font-medium hover:bg-red-700'>Delete</button>
                                 </td>
