@@ -8,14 +8,12 @@ const AddVehicle = () => {
     const [registrationNo, setRegNo] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDes] = useState("");
-    // let [image, setImage] = useState(null);
+    const [Image, setImage] = useState("");
     const navigate = useNavigate();
 
 
     const vehicleData = async () => {
-        // const image = imagePath;
-        // console.log(category, name, countInStock, registrationNo, price, description, image);
-        const image = '/uploads/image-1685614771716.jpg'
+        const image = Image;
         const result = await fetch("http://localhost:5000/api/product", {
             method: 'post',
             body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
@@ -42,14 +40,8 @@ const AddVehicle = () => {
         const data = await result.json();
         const imagePath = data.path; // Assuming the server returns the image path in the "path" property
         console.log(imagePath);
-
-
-
+        setImage(imagePath);
     }
-
-
-
-
 
     return (
         <div className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
