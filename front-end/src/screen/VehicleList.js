@@ -33,22 +33,28 @@ const VehicleList = () => {
 
         getVehicles();
     }, []);
-
     console.warn("vehicles", vehicles);
+
     const deleteProduct = async (id) => {
 
-        const result = await fetch(`http://localhost:5000/api/product/${id}`, {
-            method: 'Delete',
-            headers: {
-                Authorization: `Bearer ${JSON.parse(auth).token}`,
-            },
-        });
-        // const resultData = await result.json();
-        if (result) {
-            alert("Record delete Successfully");
+        const answer = window.confirm("You want to delete product !");
+        if (answer === true) {
+            const result = await fetch(`http://localhost:5000/api/product/${id}`, {
+                method: 'Delete',
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(auth).token}`,
+                },
+            });
+
+            if (result) {
+                alert("Data Delete Successfully")
+            }
         }
 
     }
+
+
+
     return (
         <form className="inline-grid mt-28 mx-2 rounded-xl justify-center bg-stone-200">
             <div className="mt-4">

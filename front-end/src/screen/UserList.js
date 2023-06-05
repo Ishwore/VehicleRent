@@ -26,18 +26,18 @@ const UserList = () => {
 
     console.warn(users);
     const deleteProduct = async (id) => {
-
-        const result = await fetch(`http://localhost:5000/api/users/${id}`, {
-            method: 'Delete',
-            headers: {
-                Authorization: `Bearer ${JSON.parse(auth).token}`,
-            },
-        });
-        // const resultData = await result.json();
-        if (result) {
-            alert("Record delete Successfully");
+        const answer = window.confirm("You want to delete User !");
+        if (answer === true) {
+            const result = await fetch(`http://localhost:5000/api/users/${id}`, {
+                method: 'Delete',
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(auth).token}`,
+                },
+            });
+            if (result) {
+                alert("User delete Successfully");
+            }
         }
-
     }
 
     return (
