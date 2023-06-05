@@ -10,7 +10,7 @@ const AddVehicle = () => {
     const [description, setDes] = useState("");
     const [Image, setImage] = useState("");
     const navigate = useNavigate();
-
+    const auth = localStorage.getItem('user');
 
     const vehicleData = async () => {
         const image = Image;
@@ -18,7 +18,8 @@ const AddVehicle = () => {
             method: 'post',
             body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${JSON.parse(auth).token}`,
             },
         });
         const resultData = await result.json();

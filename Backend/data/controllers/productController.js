@@ -30,7 +30,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    await product.remove()
+    await product.deleteOne()
     res.json({ message: 'Product removed' })
   } else {
     res.status(404)
@@ -67,7 +67,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     price,
     description,
     image,
-    brand,
+    registrationNo,
     category,
     countInStock,
   } = req.body
@@ -79,7 +79,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price
     product.description = description
     product.image = image
-    product.brand = brand
+    product.registrationNo = registrationNo
     product.category = category
     product.countInStock = countInStock
 

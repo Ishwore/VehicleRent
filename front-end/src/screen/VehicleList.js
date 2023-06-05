@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { Link } from "react-router-dom"
 const VehicleList = () => {
     const [vehicles, setVehicles] = useState([]);
     const resultData = useRef([]);
-
+    // const navigate = useNavigate();
+    const auth = localStorage.getItem('user');
 
     useEffect(() => {
         const getVehicles = async () => {
@@ -34,17 +35,30 @@ const VehicleList = () => {
     }, []);
 
     console.warn("vehicles", vehicles);
+    const deleteProduct = async (id) => {
 
+        const result = await fetch(`http://localhost:5000/api/product/${id}`, {
+            method: 'Delete',
+            headers: {
+                Authorization: `Bearer ${JSON.parse(auth).token}`,
+            },
+        });
+        // const resultData = await result.json();
+        if (result) {
+            alert("Record delete Successfully");
+        }
+
+    }
     return (
-        <form className="inline-grid mt-28 rounded-xl justify-center bg-stone-200">
-            <div className="mt-2">
-                <h1 className='text-center font-bold text-2xl text-stone-600'>User Details</h1>
+        <form className="inline-grid mt-28 mx-2 rounded-xl justify-center bg-stone-200">
+            <div className="mt-4">
+                <h1 className='text-center font-bold text-2xl text-stone-600'>Vehicle Details</h1>
             </div>
-            <div>
-                <table className='border-collapse border border-slate-950 my-5'>
+            <div className="px-3 mt-3">
+                <table className='border-collapse border border-slate-950 my-5  '>
                     <thead className="text-base">
                         <tr>
-                            <th className='px-1 border border-slate-800 '>Vehicle ID</th>
+                            <th className='px-1 border border-slate-800 '>S.No</th>
                             <th className='px-1 border border-slate-800 '>Vehicle Name</th>
                             <th className='px-1 border border-slate-800 '>Category</th>
                             <th className='px-1 border border-slate-800 '>Image</th>
@@ -57,22 +71,22 @@ const VehicleList = () => {
                             <th className='px-1 border border-slate-800 '>Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="text-xs">
-                        {resultData.current.map((result) => (
+                    <tbody className="text-sm">
+                        {resultData.current.map((result, index) => (
                             <tr key={result._id}>
-                                <td className='px-1 border border-slate-700'>{result._id}</td>
-                                <td className='px-1 border border-slate-700'>{result.name}</td>
-                                <td className='px-1 border border-slate-700'>{result.category}</td>
-                                <td className='px-1 border border-slate-700'>{result.image}</td>
-                                <td className='px-1 border border-slate-700'>{result.registrationNo}</td>
-                                <td className='px-1 border border-slate-700'>{result.countInStock}</td>
-                                <td className='px-1 border border-slate-700'>{result.price}</td>
-                                <td className='px-1 border border-slate-700'>{result.rating}</td>
-                                <td className='px-1 border border-slate-700'>{result.numReviews}</td>
-                                <td className='px-1 border border-slate-700'>{result.description}</td>
-                                <td className='px-1 border border-slate-700 text-white'>
-                                    <button className='mx-1 bg-stone-600 rounded-xl px-2 font-medium hover:bg-stone-700 hover:font-bold'>Edit</button>
-                                    <button className='mx-1 bg-red-600 rounded-xl px-2 font-medium hover:bg-red-700'>Delete</button>
+                                <td className='px-2 py-2 border border-slate-700'>{index + 1}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.name}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.category}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.image}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.registrationNo}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.countInStock}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.price}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.rating}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.numReviews}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.description}</td>
+                                <td className='px-2 py-2 border border-slate-700 text-white'>
+                                    <Link to={"/UpdateVehicle/" + result._id} ><button className='mx-1 bg-stone-600 rounded-xl px-2 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link>
+                                    <button onClick={() => deleteProduct(result._id)} className='mx-1 bg-red-600 rounded-xl px-2 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
                                 </td>
                             </tr>
                         ))}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import { useCookies } from 'react-cookie';
 //import Message from '../components/Message'
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -7,7 +8,10 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    // const [cookies, setCookie] = useCookies(['user']);
     useEffect(() => {
+        // const userData = cookies.user;
+        // console.log(userData);
         const auth = localStorage.getItem('user');
         if (auth) {
             navigate('/');
@@ -26,6 +30,7 @@ const Login = () => {
         // console.warn(resultData);
         if (resultData.name) {
             localStorage.setItem("user", JSON.stringify(resultData));
+            // setCookie('user', JSON.stringify(resultData));
             navigate("/");
         } else {
             alert("Invalid Email and Password")
