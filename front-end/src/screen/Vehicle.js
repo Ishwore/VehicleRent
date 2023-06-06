@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const AddVehicle = () => {
     const [category, setcatName] = useState("");
@@ -9,7 +9,7 @@ const AddVehicle = () => {
     const [price, setPrice] = useState("");
     const [description, setDes] = useState("");
     const [Image, setImage] = useState("");
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const auth = localStorage.getItem('user');
 
     const vehicleData = async () => {
@@ -25,12 +25,11 @@ const AddVehicle = () => {
         const resultData = await result.json();
         // localStorage.setItem("vehicle", JSON.stringify(resultData));
         console.warn(resultData);
-        navigate('/addvehicle');
+        // navigate('/addvehicle');
     }
 
     const imageUpload = async (e) => {
         const image = e.target.files[0];
-        // image = setImage;
         const formData = new FormData();
         formData.append('image', image);
         const result = await fetch("http://localhost:5000/api/upload", {
@@ -45,7 +44,7 @@ const AddVehicle = () => {
     }
 
     return (
-        <div className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
+        <form className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
             <div className="mt-2">
                 <h1 className='text-center font-bold text-2xl text-stone-600'>Add Vehicle</h1>
             </div>
@@ -81,9 +80,9 @@ const AddVehicle = () => {
             </div>
             <div className="flex text-white mb-3 mt-4 justify-between">
                 <input type="submit" onClick={vehicleData} className='w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Add Vehicle" />
-                <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" />
+                {/* <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" /> */}
             </div>
-        </div>
+        </form>
     )
 }
 

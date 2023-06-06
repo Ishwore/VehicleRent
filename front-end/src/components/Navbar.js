@@ -51,7 +51,6 @@ const Navbar = () => {
                     <>
                         <div className="pt-2 font-semibold text-white  ">
                             <ul className="flex" >
-                                <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/updatevehicle">updateVehicle</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/addvehicle">AddVehicle</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/userlist">UserList</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/vehiclelist">VehicleList</Link></li></button>

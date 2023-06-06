@@ -12,6 +12,8 @@ import UserList from './screen/UserList';
 import VehicleList from './screen/VehicleList';
 import Home from './screen/HomePage';
 import UpdateVehicle from './screen/UpdateVehicle';
+// import UserComponent from './components/UserComponent';
+import Dashbord from './screen/Dashbord';
 function App() {
   return (
     <div className="text-center">
@@ -19,6 +21,7 @@ function App() {
         <Nav />
         <Routes>
           <Route element={<PrivateComponent />}>
+            <Route path='/dashbord' element={<Dashbord />} />
             <Route path='/updatevehicle/:id' element={<UpdateVehicle />} />
             <Route path='/addvehicle' element={<AddVehicle />} />
             <Route path='/userlist' element={<UserList />} />
@@ -28,7 +31,6 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
           <Route path='/aboutus' element={<AboutUs />} />
-
           <Route path='/contactus' element={<ContactUs />} />
         </Routes>
       </BrowserRouter>

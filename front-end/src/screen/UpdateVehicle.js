@@ -16,11 +16,11 @@ const UpdateVehicle = () => {
 
     useEffect(() => {
         getVehicleDetails();
-    })
+    }, [])
 
 
     const getVehicleDetails = async () => {
-        console.log(params);
+        // console.log(params);
         const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
             method: 'get',
             headers: {
@@ -28,12 +28,20 @@ const UpdateVehicle = () => {
             }
         });
         const resultData = await result.json();
-        console.log(resultData);
+        // console.log(resultData);
+        setcatName(resultData.category);
+        setName(resultData.name);
+        setQty(resultData.countInStock);
+        setRegNo(resultData.registrationNo);
+        setPrice(resultData.price);
+        setDes(resultData.description);
+        setImage(resultData.Image);
+
     }
 
-    const vehicleData = async () => {
+    const updateVehicle = async () => {
         const image = Image;
-        const result = await fetch("http://localhost:5000/api/product", {
+        const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
             method: 'put',
             body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
             headers: {
@@ -44,11 +52,10 @@ const UpdateVehicle = () => {
         const resultData = await result.json();
         // localStorage.setItem("vehicle", JSON.stringify(resultData));
         console.warn(resultData);
-        navigate('/addvehicle');
+        navigate('/vehiclelist');
     }
     const imageUpload = async (e) => {
         const image = e.target.files[0];
-        // image = setImage;
         const formData = new FormData();
         formData.append('image', image);
         const result = await fetch("http://localhost:5000/api/upload", {
@@ -58,7 +65,7 @@ const UpdateVehicle = () => {
         });
         const data = await result.json();
         const imagePath = data.path; // Assuming the server returns the image path in the "path" property
-        console.log(imagePath);
+        // console.log(imagePath);
         setImage(imagePath);
     }
 
@@ -90,7 +97,7 @@ const UpdateVehicle = () => {
             </div>
             <div className="flex mt-2">
                 <label htmlFor="image" className="text-left font-medium text-stone-500 mt-2 ml-2">*Image* :</label>
-                {/* <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 ml-36" onChange={(e) => imageUpload(setImage = e.target.files[0])} type="file" required /> */}
+                {/* <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 ml-36" value={image} onChange={(e) => setImage(e.target.files[0])} type="file" required /> */}
                 <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 ml-36" onChange={(e) => imageUpload(e)} type="file" required />
 
             </div>
@@ -99,8 +106,8 @@ const UpdateVehicle = () => {
                 <textarea className="w-72 outline outline-offset-2 outline-2 rounded-md mt-2 mr-3 ml-12" value={description} onChange={(e) => setDes(e.target.value)} placeholder="Write something.." required />
             </div>
             <div className="flex text-white mb-3 mt-4 justify-between">
-                <input type="submit" onClick={vehicleData} className='w-44 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Update Vehicle" />
-                <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" />
+                <input type="submit" onClick={updateVehicle} className='w-44 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Update Vehicle" />
+                {/* <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" /> */}
             </div>
         </div>
 

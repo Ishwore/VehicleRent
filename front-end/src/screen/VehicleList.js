@@ -7,37 +7,36 @@ const VehicleList = () => {
     const auth = localStorage.getItem('user');
 
     useEffect(() => {
-        const getVehicles = async () => {
-            try {
-                const result = await fetch('http://localhost:5000/api/product', {
-                    method: 'get',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                const data = await result.json();
-
-                console.log('Fetched data:', data);
-
-                if (Array.isArray(data)) {
-                    resultData.current = data;
-                    setVehicles(data);
-                } else {
-                    console.error('Invalid data format:', data);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
         getVehicles();
     }, []);
+    const getVehicles = async () => {
+        try {
+            const result = await fetch('http://localhost:5000/api/product', {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await result.json();
+
+            // console.log('Fetched data:', data);
+
+            if (Array.isArray(data)) {
+                resultData.current = data;
+                setVehicles(data);
+            } else {
+                console.error('Invalid data format:', data);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     console.warn("vehicles", vehicles);
 
     const deleteProduct = async (id) => {
 
-        const answer = window.confirm("You want to delete product !");
+        const answer = window.confirm("You want to delete vehicle!");
         if (answer === true) {
             const result = await fetch(`http://localhost:5000/api/product/${id}`, {
                 method: 'Delete',
@@ -58,23 +57,23 @@ const VehicleList = () => {
     return (
         <form className="inline-grid mt-28 mx-2 rounded-xl justify-center bg-stone-200">
             <div className="mt-4">
-                <h1 className='text-center font-bold text-2xl text-stone-600'>Vehicle Details</h1>
+                <h1 className='text-center font-bold text-2xl text-stone-600'>Vehicle Lists</h1>
             </div>
-            <div className="px-3 mt-3">
+            <div className="px-3 py-3">
                 <table className='border-collapse border border-slate-950 my-5  '>
                     <thead className="text-base">
                         <tr>
-                            <th className='px-1 border border-slate-800 '>S.No</th>
-                            <th className='px-1 border border-slate-800 '>Vehicle Name</th>
-                            <th className='px-1 border border-slate-800 '>Category</th>
-                            <th className='px-1 border border-slate-800 '>Image</th>
-                            <th className='px-1 border border-slate-800 '>RegistrationNo</th>
-                            <th className='px-1 border border-slate-800 '>Quntity</th>
-                            <th className='px-1 border border-slate-800 '>Rent Price</th>
-                            <th className='px-1 border border-slate-800 '>Reviews Rating</th>
-                            <th className='px-1 border border-slate-800 '>Reviews Number</th>
-                            <th className='px-1 border border-slate-800 '> Description</th>
-                            <th className='px-1 border border-slate-800 '>Actions</th>
+                            <th className='px-1 py-2 border border-slate-800 '>S.No</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Vehicle Name</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Category</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Image</th>
+                            <th className='px-1 py-2 border border-slate-800 '>RegistrationNo</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Quntity</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Rent Price</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Reviews Rating</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Reviews Number</th>
+                            <th className='px-1 py-2 border border-slate-800 '> Description</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Actions</th>
                         </tr>
                     </thead>
                     <tbody className="text-sm">
@@ -91,8 +90,8 @@ const VehicleList = () => {
                                 <td className='px-2 py-2 border border-slate-700'>{result.numReviews}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.description}</td>
                                 <td className='px-2 py-2 border border-slate-700 text-white'>
-                                    <Link to={"/UpdateVehicle/" + result._id} ><button className='mx-1 bg-stone-600 rounded-xl px-2 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link>
-                                    <button onClick={() => deleteProduct(result._id)} className='mx-1 bg-red-600 rounded-xl px-2 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
+                                    <Link to={"/UpdateVehicle/" + result._id} ><button className='mx-1 bg-stone-600 rounded-xl px-2 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link>
+                                    <button onClick={() => deleteProduct(result._id)} className='mx-1 bg-red-600 rounded-xl px-2 py-1 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
                                 </td>
                             </tr>
                         ))}
