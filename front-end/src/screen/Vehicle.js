@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const AddVehicle = () => {
     const [category, setcatName] = useState("");
-    const [name, setName] = useState("");
+    const [Name, setName] = useState("");
     const [countInStock, setQty] = useState("");
     const [registrationNo, setRegNo] = useState("");
     const [price, setPrice] = useState("");
@@ -14,6 +14,7 @@ const AddVehicle = () => {
 
     const vehicleData = async () => {
         const image = Image;
+        const name = Name.toLowerCase();
         const result = await fetch("http://localhost:5000/api/product", {
             method: 'post',
             body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
@@ -54,7 +55,7 @@ const AddVehicle = () => {
             </div>
             <div className="flex mt-2">
                 <label htmlFor="vehicle name" className="text-left font-medium text-stone-500 ml-3 mt-2">*Vehicle Name* :</label>
-                <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 ml-20 mr-3" value={name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Enter vehicle name.." required />
+                <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 ml-20 mr-3" value={Name} onChange={(e) => setName(e.target.value)} type="text" placeholder="Enter vehicle name.." required />
             </div>
             <div className="flex mt-2">
                 <label htmlFor="vehicle qty" className="text-left font-medium text-stone-500 mt-2 ml-3">*Vehicle Quantity* :</label>

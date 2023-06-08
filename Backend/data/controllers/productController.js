@@ -9,6 +9,20 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+//@desc fetch product bu search
+//@route  GET/api/products/search/:key
+// @access Public
+const getProductsBySearch = asyncHandler(async (req, res) => {
+  const search = await Product.find({
+    "$or": [
+      { name: { $regex: req.params.key } },
+      { category: { $regex: req.params.key } }
+    ]
+  })
+  res.json(search)
+})
+
+
 // @desc    Fetch single product
 // @route   GET /api/products/:id
 // @access  Public
@@ -132,6 +146,7 @@ const getTopProducts = asyncHandler(async (req, res) => {
 
 module.exports = {
   getProducts,
+  getProductsBySearch,
   getProductById,
   deleteProduct,
   createProduct,

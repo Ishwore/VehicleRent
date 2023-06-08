@@ -14,6 +14,7 @@ import Home from './screen/HomePage';
 import UpdateVehicle from './screen/UpdateVehicle';
 // import UserComponent from './components/UserComponent';
 import Dashbord from './screen/Dashbord';
+import Book from './screen/Book';
 function App() {
   return (
     <div className="text-center">
@@ -28,6 +29,7 @@ function App() {
             <Route path='/vehiclelist' element={<VehicleList />} />
           </Route>
           <Route path='/' element={<Home />} />
+          <Route path='/book/:id' element={<Book />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />
           <Route path='/aboutus' element={<AboutUs />} />
