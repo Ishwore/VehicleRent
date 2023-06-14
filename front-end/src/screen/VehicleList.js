@@ -51,7 +51,9 @@ const VehicleList = () => {
         }
 
     }
-
+    const getImageUrl = (imageName) => {
+        return `http://localhost:5000${imageName}`;
+    };
 
 
     return (
@@ -82,7 +84,12 @@ const VehicleList = () => {
                                 <td className='px-2 py-2 border border-slate-700'>{index + 1}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.name}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.category}</td>
-                                <td className='px-2 py-2 border border-slate-700'>{result.image}</td>
+                                <td className='px-2 py-2 border  border-slate-700'>
+                                    <img
+                                        src={getImageUrl(result.image)}
+                                        alt={result.name}
+                                        className="w-40 h-22 object-cover mb-4 rounded-md"
+                                    /></td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.registrationNo}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.countInStock}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.price}</td>

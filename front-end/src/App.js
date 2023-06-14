@@ -22,13 +22,13 @@ function App() {
         <Nav />
         <Routes>
           <Route element={<PrivateComponent />}>
-            <Route path='/dashbord' element={<Dashbord />} />
+            <Route path='/dashbord' element={<Dashbord />} exact />
             <Route path='/updatevehicle/:id' element={<UpdateVehicle />} />
             <Route path='/addvehicle' element={<AddVehicle />} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/vehiclelist' element={<VehicleList />} />
           </Route>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home />} exact />
           <Route path='/book/:id' element={<Book />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/login' element={<Login />} />

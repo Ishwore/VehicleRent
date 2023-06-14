@@ -18,39 +18,39 @@ const HomePage = () => {
         fetchVehicles();
     }, []);
 
-    // const getImageUrl = (imageName) => {
-    //     return `${imageName}`;
-    // };
+    const getImageUrl = (imageName) => {
+        return `http://localhost:5000${imageName}`;
+    };
 
     return (
-        <div >
+        <div className=" pt-14"  >
             <div className="grid grid-cols-3 gap-4 mx-10">
                 {vehicles.length > 0 ? <> {
                     vehicles.map((vehicle) => (
                         <div
                             key={vehicle._id}
-                            className="bg-stone-200 p-4 rounded-lg shadow-lg mt-20 "
+                            className="mt-8 bg-stone-200 p-4 rounded-lg shadow-lg  "
                         >
                             <img
-                                src={vehicle.image}
+                                src={getImageUrl(vehicle.image)}
                                 alt={vehicle.name}
-                                className="w-full h-40 object-cover mb-4 rounded-md"
+                                className="w-full h-60 object-cover mb-4 rounded-md"
                             />
                             <h2 className="text-xl font-semibold text-stone-600">
-                                {vehicle.name}
+                                {vehicle.name.toUpperCase()}
                             </h2>
                             <p className="text-stone-400">Category: {vehicle.category}</p>
-                            <p className="text-stone-400">Price: ${vehicle.price}</p>
+                            <p className="text-stone-400">Price: NRs {vehicle.price}</p>
                             <div className="flex justify-between mt-4">
                                 <Link
                                     to={`/view/${vehicle._id}`}
-                                    className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-700"
+                                    className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-800 hover:font-bold"
                                 >
                                     View
                                 </Link>
                                 <Link to={`/book/${vehicle._id}`}>
                                     <button
-                                        className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-700"
+                                        className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-800 hover:font-bold"
                                     >
                                         Book
                                     </button>
