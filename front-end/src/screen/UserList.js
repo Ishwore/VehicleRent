@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+// import { Navigate } from "react-router-dom";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const resultData = useRef([]);
     const auth = localStorage.getItem('user');
+    // if (!auth) {
+    //     <Navigate to="/login" />
+    // }
 
     useEffect(() => {
         const getUsers = async () => {

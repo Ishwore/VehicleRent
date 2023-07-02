@@ -39,25 +39,29 @@ const Login = () => {
 
     }
     return (
-        <div className="inline-grid mt-32 rounded-3xl w-96  justify-center bg-stone-200">
+        <div className="inline-grid mt-32 rounded-3xl w-auto mb-20 justify-center bg-stone-200">
             <div className=" mt-4">
                 <h1 className='text-center font-extrabold text-2xl text-stone-600 '>Login</h1>
             </div>
-            <div className=" inline-grid mt-2">
-                <label htmlFor='email' className="text-left font-bold text-stone-500 ">*Email*</label>
+            <div className=" inline-grid mt-2 px-14">
+                <label className="text-left font-bold text-stone-500 ">*Email*</label>
                 <input className=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 " type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your Email" required />
             </div>
-            <div className=" inline-grid mt-2">
-                <label htmlFor="password" className="text-left font-bold text-stone-500">*Password*</label>
+            <div className=" inline-grid mt-2 px-14">
+                <label className="text-left font-bold text-stone-500">*Password*</label>
                 <input className=" w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your Password" required />
             </div>
-            <button onClick={collectData} className=' w-72 rounded-xl bg-green-700 h-12 text-white text-center font-semibold mt-8 mb-3 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full'  >Login</button>
-            <div className="mt-2 mb-6">
-                <div className="flex">
-                    <p className="ml-6">I have allready account ?</p>
+            <div className=" px-14">
+                <button onClick={collectData} className=' w-72 rounded-xl bg-green-700 h-12 text-white text-center font-semibold mt-8 mb-3 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full'  >Login</button>
+            </div>
+            <div className="my-6 px-4">
+                <div className="flex text-base py-3">
+                    <p className="ml-1">Create new account ?</p>
                     <Link className="underline ml-1 " to="/signup" >SignUp</Link>
+                    <Link className="underline ml-4 " to="/forgetpassword" >ForgetPassword?</Link>
                 </div>
             </div>
+
         </div>
 
     )

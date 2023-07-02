@@ -28,6 +28,13 @@ const Navbar = () => {
             </div>
             <div className="flex">
                 {auth && !(JSON.parse(auth).isAdmin) && (<>
+                    <div className="pt-2 mr-2 font-semibold text-white  ">
+                        <ul className="flex" >
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
+                        </ul>
+                    </div>
                     <img
                         className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" />
                     <div className="pt-2 font-semibold text-white  ">
@@ -36,13 +43,16 @@ const Navbar = () => {
                         </ul>
                     </div>
 
-                </>)} {!auth && (
+                </>)}
+
+                {!auth && (
                     <div className="pt-2 font-semibold text-white  ">
                         <ul className="flex" >
-                            <button className=" mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
-                            <button className=" mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
-                            <button className=" mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/login">Login</Link></li></button>
-                            <button className=" mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/signup">SignUp</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-20 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/login">Login</Link></li></button>
+                            <button className=" ml-1  mr-3 rounded-2xl w-20 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/signup">SignUp</Link></li></button>
                         </ul>
                     </div>
                 )}
@@ -51,6 +61,7 @@ const Navbar = () => {
                     <>
                         <div className="pt-2 mr-2 font-semibold text-white  ">
                             <ul className="flex" >
+                                <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/dashbord">Dashbord</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/addvehicle">AddVehicle</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/userlist">UserList</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/vehiclelist">VehicleList</Link></li></button>

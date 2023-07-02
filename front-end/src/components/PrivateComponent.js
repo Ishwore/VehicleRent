@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateComponent = () => {
     const auth = localStorage.getItem('user');
-    const admin = JSON.parse(auth).isAdmin
-    return admin ? <Outlet /> : <Navigate to="/login" />
+
+    return auth ? ((JSON.parse(auth).isAdmin) ? <Outlet /> : <Navigate to="/login" />) : < Navigate to="/signup" />
 }
 export default PrivateComponent 
