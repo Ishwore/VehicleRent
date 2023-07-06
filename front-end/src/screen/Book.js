@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
 const Book = () => {
+    const auth = localStorage.getItem('user');
+    const navigate = useNavigate();
+
     const [date, setDate] = useState('');
     const [isValid, setIsValid] = useState(true);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [days, setDays] = useState('');
     const [message, setMessage] = useState('');
+    useEffect(() => {
+        if (!auth) {
+            navigate('/login');
+            // alert("You are not Login !");
+        }
+    })
+
+
     const handleDateChange = (event) => {
         const inputDate = event.target.value;
         const currentDate = new Date();
@@ -23,10 +35,11 @@ const Book = () => {
 
     const bookHandle = async (e) => {
         console.log(name, date, phone, days, message);
+
     }
 
     return (
-        <div className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
+        <div className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200 mb-16">
             <div className="mt-2">
                 <h1 className='text-center font-bold text-2xl text-stone-600'>Book Vehicle</h1>
             </div>
@@ -40,15 +53,16 @@ const Book = () => {
             </div>
             <div className="flex mt-2">
                 <label className="text-left font-medium text-stone-500 mt-2 ml-3">*From Date* :</label>
-                <input
-                    className={`w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 ml-11 mr-3 ${isValid ? '' : 'border-red-500'}`}
-                    type="datetime-local"
-                    placeholder="Enter need date.."
-                    required
-                    value={date}
-                    onChange={handleDateChange}
-                />
-                <span>{!isValid && <p className="mt-3 text-red-500">Error: Selected date must be in the future.</p>}</span>
+                <div className="flex-auto">
+                    <input className={`w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 ml-11 mr-3 ${isValid ? '' : 'border-red-500'}`}
+                        type="datetime-local"
+                        placeholder="Enter need date.."
+                        required
+                        value={date}
+                        onChange={handleDateChange}
+                    />
+                    <><span>{!isValid && <p className="mt-3 text-red-500">Error: Selected date must be in the future.</p>}</span></></div>
+
             </div>
             <div className="flex mt-2">
                 <label className="text-left font-medium text-stone-500 ml-2 mt-2">*Days*:</label>
@@ -60,7 +74,8 @@ const Book = () => {
             </div>
             <div className="flex text-white mb-3 mt-4 justify-between">
                 <input type="submit" onClick={bookHandle} className='w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Book Now" />
-                <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" />
+                <Link to="/home" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full'>Cancel</Link>
+                {/* <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" /> */}
             </div>
         </div>
     )

@@ -72,8 +72,8 @@ const VehicleList = () => {
                             <th className='px-1 py-2 border border-slate-800 '>RegistrationNo</th>
                             <th className='px-1 py-2 border border-slate-800 '>Quntity</th>
                             <th className='px-1 py-2 border border-slate-800 '>Rent Price</th>
-                            <th className='px-1 py-2 border border-slate-800 '>Reviews Rating</th>
-                            <th className='px-1 py-2 border border-slate-800 '>Reviews Number</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Rating</th>
+                            <th className='px-1 py-2 border border-slate-800 '>Reviews</th>
                             <th className='px-1 py-2 border border-slate-800 '> Description</th>
                             <th className='px-1 py-2 border border-slate-800 '>Actions</th>
                         </tr>
@@ -82,7 +82,7 @@ const VehicleList = () => {
                         {resultData.current.map((result, index) => (
                             <tr key={result._id}>
                                 <td className='px-2 py-2 border border-slate-700'>{index + 1}</td>
-                                <td className='px-2 py-2 border border-slate-700'>{result.name}</td>
+                                <td className='px-2 py-2 border border-slate-700'>{result.name.toUpperCase()}</td>
                                 <td className='px-2 py-2 border border-slate-700'>{result.category}</td>
                                 <td className='px-2 py-2 border  border-slate-700'>
                                     <img

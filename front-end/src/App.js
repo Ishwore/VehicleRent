@@ -12,6 +12,7 @@ import UserList from './screen/UserList';
 import VehicleList from './screen/VehicleList';
 import Home from './screen/HomePage';
 import UpdateVehicle from './screen/UpdateVehicle';
+import ViewVehicle from './screen/ViewVehicle';
 // import UserComponent from './components/UserComponent';
 import Dashbord from './screen/Dashbord';
 import Book from './screen/Book';
@@ -38,6 +39,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/aboutus' element={<AboutUs />} />
           <Route path='/contactus' element={<ContactUs />} />
+          <Route path='/view/:id' element={<ViewVehicle />} />
 
         </Routes>
       </BrowserRouter>

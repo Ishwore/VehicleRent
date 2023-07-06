@@ -36,23 +36,23 @@ const HomePage = () => {
                                 alt={vehicle.name}
                                 className="w-full h-60 object-cover mb-4 rounded-md"
                             />
-                            <h2 className="text-xl font-semibold text-stone-600">
+                            <h2 className="text-xl font-semibold mt-2 ">
                                 {vehicle.name.toUpperCase()}
                             </h2>
-                            <p className="text-stone-400">Category: {vehicle.category}</p>
-                            <p className="text-stone-400">Price: NRs {vehicle.price}</p>
+                            <p className="mt-2">{vehicle.description}</p>
+                            <p className=" bg-sky-400 h-10 pt-2 mt-2 rounded-sm "> Rent Price Per Day: NRs {vehicle.price}</p>
                             <div className="flex justify-between mt-4">
                                 <Link
                                     to={`/view/${vehicle._id}`}
-                                    className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-800 hover:font-bold"
+                                    className="bg-amber-600 text-white py-2 px-4 rounded-md font-medium hover:bg-amber-700 hover:font-bold"
                                 >
-                                    View
+                                    View Details
                                 </Link>
                                 <Link to={`/book/${vehicle._id}`}>
                                     <button
-                                        className="bg-stone-600 text-white py-2 px-4 rounded-md font-medium hover:bg-stone-800 hover:font-bold"
+                                        className="bg-red-700 text-white py-2 px-4 rounded-md font-medium hover:bg-red-800 hover:font-bold"
                                     >
-                                        Book
+                                        Book Now
                                     </button>
                                 </Link>
                             </div>

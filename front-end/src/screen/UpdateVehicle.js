@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 const UpdateVehicle = () => {
@@ -35,7 +35,7 @@ const UpdateVehicle = () => {
         setRegNo(resultData.registrationNo);
         setPrice(resultData.price);
         setDes(resultData.description);
-        setImage(resultData.Image);
+        setImage(resultData.image);
 
     }
 
@@ -97,8 +97,10 @@ const UpdateVehicle = () => {
             </div>
             <div className="flex mt-2">
                 <label htmlFor="image" className="text-left font-medium text-stone-500 mt-2 ml-2">*Image* :</label>
-                {/* <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 ml-36" value={image} onChange={(e) => setImage(e.target.files[0])} type="file" required /> */}
-                <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 ml-36" onChange={(e) => imageUpload(e)} type="file" required />
+                <div className="inline-grid ml-36">
+                    <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 mr-3 " onChange={(e) => imageUpload(e)} type="file" required />
+                    <><span className="text-sm mt-2" >{Image}</span></>
+                </div>
 
             </div>
             <div className="flex mt-2">
@@ -107,9 +109,10 @@ const UpdateVehicle = () => {
             </div>
             <div className="flex text-white mb-3 mt-4 justify-between">
                 <input type="submit" onClick={updateVehicle} className='w-44 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Update Vehicle" />
+                <Link to="/vehiclelist" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 pt-2.5 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full ' >Cancel</Link>
                 {/* <input type="reset" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full' value="Clear" /> */}
             </div>
-        </div>
+        </div >
 
     )
 }
