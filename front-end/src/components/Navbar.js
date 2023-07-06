@@ -30,9 +30,9 @@ const Navbar = () => {
                 {auth && !(JSON.parse(auth).isAdmin) && (<>
                     <div className="pt-2 mr-2 font-semibold text-white  ">
                         <ul className="flex" >
-                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
-                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
-                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
                         </ul>
                     </div>
                     <img

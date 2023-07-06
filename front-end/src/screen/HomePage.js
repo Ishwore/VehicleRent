@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const [vehicles, setVehicles] = useState([]);
-
+    const auth = localStorage.getItem('user');
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchVehicles = async () => {
             try {
@@ -20,6 +21,27 @@ const HomePage = () => {
 
     const getImageUrl = (imageName) => {
         return `http://localhost:5000${imageName}`;
+    };
+    const cardHandle = async (id, name, category, image, price, description, registrationNo) => {
+        // const id = num;
+        if (auth) {
+            const vehicle_id = id;
+            const user_id = JSON.parse(auth)._id;
+            console.log(vehicle_id, user_id, name, category, image, price, description, registrationNo);
+            const result = await fetch("http://localhost:5000/api/card", {
+                method: 'post',
+                body: JSON.stringify({ user_id, vehicle_id, category, name, registrationNo, price, description, image }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            const resultData = await result.json();
+            console.log(resultData);
+
+        } else {
+            navigate('/login');
+        }
+
     };
 
     return (
@@ -42,13 +64,12 @@ const HomePage = () => {
                             <p className="mt-2">{vehicle.description}</p>
                             <p className=" bg-sky-400 h-10 pt-2 mt-2 rounded-sm "> Rent Price Per Day: NRs {vehicle.price}</p>
                             <div className="flex justify-between mt-4">
-                                <Link
-                                    to={`/view/${vehicle._id}`}
+                                <button onClick={() => cardHandle(vehicle._id, vehicle.name, vehicle.category, vehicle.image, vehicle.price, vehicle.description, vehicle.registrationNo)}
                                     className="bg-amber-600 text-white py-2 px-4 rounded-md font-medium hover:bg-amber-700 hover:font-bold"
                                 >
-                                    View Details
-                                </Link>
-                                <Link to={`/book/${vehicle._id}`}>
+                                    Add Card
+                                </button>
+                                <Link to={`/view/${vehicle._id}`}>
                                     <button
                                         className="bg-red-700 text-white py-2 px-4 rounded-md font-medium hover:bg-red-800 hover:font-bold"
                                     >

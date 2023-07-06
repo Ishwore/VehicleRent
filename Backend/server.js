@@ -5,6 +5,7 @@ const path = require('path')
 //const dotenv = require('dotenv')
 const morgan = require('morgan')
 const productRoutes = require('./routes/productRoutes.js')
+const cardRoutes = require('./routes/cardRoutes.js')
 // const orderRoutes = require('./routes/orderRoutes.js')
 const uploadRoutes = require('./routes/uploadRoutes.js')
 const userRoutes = require('./routes/userRoutes.js')
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/api/product', productRoutes)
 app.use('/api/users', userRoutes)
 // app.use('/api/orders', orderRoutes)
+app.use('/api/card', cardRoutes)
 app.use('/api/upload', uploadRoutes)
 
 
