@@ -36,6 +36,9 @@ const HomePage = () => {
                 },
             });
             const resultData = await result.json();
+            if (resultData) {
+                alert(resultData);
+            }
             console.log(resultData);
 
         } else {

@@ -11,11 +11,24 @@ const Book = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [days, setDays] = useState('');
-    const [message, setMessage] = useState('');
+    // const [message, setMessage] = useState('');
     useEffect(() => {
         if (!auth) {
             navigate('/login');
             // alert("You are not Login !");
+        }
+
+        const getVehicleDetails = async () => {
+            // console.log(params);
+            const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const resultData = await result.json();
+            console.log(resultData);
+
         }
     })
 
@@ -36,13 +49,37 @@ const Book = () => {
         setName("");
         setPhone("");
         setDays("");
-        setMessage("");
+        // setMessage("");
     };
     const handleGoBack = () => {
         navigate(`/view/${params.id}`);
     };
     const bookHandle = async (e) => {
-        console.log(name, date, phone, days, message);
+        console.log(name, date, phone, days);
+        // const address = [
+        //     "name": name,
+        //     "date": date,
+        //     "phone": phone,
+        //     "days": days
+        // ];
+
+
+        const getVehicleDetails = async () => {
+            // console.log(params);
+            const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const resultData = await result.json();
+            console.log(resultData);
+            localStorage.setItem("bookingData", JSON.stringify(resultData));
+
+
+        }
+        getVehicleDetails();
+        localStorage.setItem("bookingAddress", JSON.stringify({ "name": name, "date": date, "phone": phone, "days": days }));
 
     }
 
@@ -77,10 +114,10 @@ const Book = () => {
                 <label className="text-left font-medium text-stone-500 ml-2 mt-2">*Days*:</label>
                 <input className="w-72 outline outline-offset-2 outline-2 text-center rounded-md mt-2 ml-24 mr-3" type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Enter need days.." required />
             </div>
-            <div className="flex mt-2">
+            {/* <div className="flex mt-2">
                 <label className="text-left font-medium text-stone-500 mt-2 ml-2">*Message* :</label>
                 <textarea className="w-72 outline outline-offset-2 outline-2 rounded-md mt-2 ml-16 mr-3" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Write something.." required />
-            </div>
+            </div> */}
             <div className="flex text-white mb-3 mt-4 justify-between">
                 <input type="submit" onClick={bookHandle} className='w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' value="Book Now" />
                 {/* <Link to="/home" className='w-24 mr-3 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full'>Cancel</Link> */}

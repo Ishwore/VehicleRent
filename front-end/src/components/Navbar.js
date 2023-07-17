@@ -33,6 +33,7 @@ const Navbar = () => {
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
+                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/card">My Card</Link></li></button>
                         </ul>
                     </div>
                     <img
