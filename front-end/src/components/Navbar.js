@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 //import ProfileMenu from "./ProfileMenu";
-import profileImg from "../assets/images/ishwore.jpg";
+import profileImg from "../assets/images/userIcon.jpg";
 import logoImg from '../assets/images/logo.png';
 import SearchBox from "./SearchBox";
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,11 @@ const Navbar = () => {
 
     const auth = localStorage.getItem('user');
     const navigate = useNavigate();
+
+    const getImageUrl = (imageName) => {
+        return `http://localhost:5000${imageName}`;
+    };
+
     const logout = () => {
         localStorage.clear();
         navigate('/');
@@ -33,16 +38,17 @@ const Navbar = () => {
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/home">Home</Link></li></button>
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/aboutus">AboutUs</Link></li></button>
                             <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/contactus">ContactUs</Link></li></button>
-                            <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/card">My Card</Link></li></button>
+                            {/* <button className=" mx-1 rounded-2xl w-24 h-10 hover:font-semibold hover:bg-slate-600 "><li><Link to="/card">My Card</Link></li></button> */}
                         </ul>
                     </div>
-                    <img
-                        className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" />
-                    <div className="pt-2 font-semibold text-white  ">
+                    <Link to='/profile'>{(JSON.parse(auth).image) === '' ? <img
+                        className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" /> : <img
+                        className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={getImageUrl((JSON.parse(auth).image))} alt="" />} </Link> <span className="mr-5"></span>
+                    {/* <div className="pt-2 font-semibold text-white  ">
                         <ul className="flex" >
                             <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-red-600 "><li><Link onClick={logout} to="/">Logout</Link></li></button>
                         </ul>
-                    </div>
+                    </div> */}
 
                 </>)}
 
@@ -68,8 +74,11 @@ const Navbar = () => {
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/vehiclelist">VehicleList</Link></li></button>
                             </ul>
                         </div>
-                        <img
-                            className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" />
+                        {/* <Link to='/profile'><img
+                            className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" />  </Link> */}
+                        <Link to='/profile'>{(JSON.parse(auth).image) === '' ? <img
+                            className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={profileImg} alt="" /> : <img
+                            className="rounded-full mx-0 mt-2 w-12 h-12 object-cover  cursor-pointer" src={getImageUrl((JSON.parse(auth).image))} alt="" />} </Link> <span className="mr-5"></span>
                         <div className="pt-2 ml-2 font-semibold text-white  ">
                             <ul className="flex" >
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-red-600 "><li><Link onClick={logout} to="/">Logout</Link></li></button>

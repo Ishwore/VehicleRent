@@ -1,4 +1,5 @@
 import './index.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 import Nav from './components/Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Footer from './components/footer';
@@ -17,6 +18,9 @@ import CardList from './screen/CardList';
 // import UserComponent from './components/UserComponent';
 import Dashbord from './screen/Dashbord';
 import Book from './screen/Book';
+import Billing from './screen/Billing';
+
+import Profile from './screen/Profile';
 function App() {
   // const auth = localStorage.getItem('user');
   return (
@@ -42,6 +46,8 @@ function App() {
           <Route path='/contactus' element={<ContactUs />} />
           <Route path='/view/:id' element={<ViewVehicle />} />
           <Route path='/card' element={<CardList />} />
+          <Route path='/billing/:id' element={<Billing />} />
+          <Route path='/profile' element={<Profile />} />
 
         </Routes>
       </BrowserRouter>

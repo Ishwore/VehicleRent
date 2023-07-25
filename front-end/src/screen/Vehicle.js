@@ -6,6 +6,7 @@ const AddVehicle = () => {
     const [Name, setName] = useState("");
     const [countInStock, setQty] = useState("");
     const [registrationNo, setRegNo] = useState("");
+    const [message, showMessage] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDes] = useState("");
     const [Image, setImage] = useState("");
@@ -15,18 +16,25 @@ const AddVehicle = () => {
     const vehicleData = async () => {
         const image = Image;
         const name = Name.toLowerCase();
-        const result = await fetch("http://localhost:5000/api/product", {
-            method: 'post',
-            body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${JSON.parse(auth).token}`,
-            },
-        });
-        const resultData = await result.json();
-        // localStorage.setItem("vehicle", JSON.stringify(resultData));
-        console.warn(resultData);
-        // navigate('/addvehicle');
+        if (!(category === '' || name === '' || countInStock === '' || registrationNo === '' || price === '' || description === '' || image === '')) {
+            const result = await fetch("http://localhost:5000/api/product", {
+                method: 'post',
+                body: JSON.stringify({ category, name, countInStock, registrationNo, price, description, image }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(auth).token}`,
+                },
+            });
+            const resultData = await result.json();
+            if (resultData.message) {
+                showMessage(resultData.message);
+            } else {
+                showMessage("Successfuly Vehicle Data Insert ")
+            }
+        } else {
+            showMessage("Please full fill all form ");
+        }
+
     }
 
     const imageUpload = async (e) => {
@@ -48,6 +56,7 @@ const AddVehicle = () => {
         <form className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
             <div className="mt-2">
                 <h1 className='text-center font-bold text-2xl text-stone-600'>Add Vehicle</h1>
+                <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 mx-4 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
             </div>
             <div className="flex mt-2">
                 <label htmlFor="catname" className="text-left font-medium text-stone-500 mt-2 ml-3">*Category Name* :</label>

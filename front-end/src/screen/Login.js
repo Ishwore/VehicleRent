@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, showMessage] = useState("");
     const navigate = useNavigate();
     // const [cookies, setCookie] = useCookies(['user']);
     useEffect(() => {
@@ -28,12 +29,12 @@ const Login = () => {
         });
         const resultData = await result.json();
         // console.warn(resultData);
-        if (resultData.name) {
+        if (resultData.message) {
+            showMessage(resultData.message);
+        } else {
             localStorage.setItem("user", JSON.stringify(resultData));
             // setCookie('user', JSON.stringify(resultData));
             navigate("/");
-        } else {
-            alert("Invalid Email and Password")
         }
 
 
@@ -42,6 +43,8 @@ const Login = () => {
         <div className="inline-grid mt-32 rounded-3xl w-auto mb-20 justify-center bg-stone-200">
             <div className=" mt-4">
                 <h1 className='text-center font-extrabold text-2xl text-stone-600 '>Login</h1>
+                <span>{message !== '' && <p className="mt-4 w-72 ml-12 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
+
             </div>
             <div className=" inline-grid mt-2 px-14">
                 <label className="text-left font-bold text-stone-500 ">*Email*</label>

@@ -51,8 +51,8 @@ const CardList = () => {
 
 
     return (
-        <form className="inline-grid mt-10 ">
-            <div className="mt-12">
+        <form className="inline-grid mt-6 ">
+            <div >
                 <h1 className="text-red-400 font-bold text-2xl">My Card List</h1>
                 <div className="inline-grid">
                     {cards.length > 0 ? <> {

@@ -3,13 +3,13 @@ const router = express.Router()
 const {
     createCard,
     getCards,
-    deleteCard,
+    removeCard,
 } = require('../data/controllers/cardController');
 router.route('/').post(createCard)
-// router.get('/:u_id', getCards);
-// router.delete('/:id', deleteCard);
-router
-    .route('/:id')
-    .get(getCards)
-    .delete(deleteCard)
+router.get('/:u_id', getCards);
+router.delete('/:id', removeCard);
+// router
+//     .route('/:id')
+//     .get(getCards)
+//     .delete(removeCard)
 module.exports = router;

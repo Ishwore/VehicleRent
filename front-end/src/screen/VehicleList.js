@@ -98,7 +98,7 @@ const VehicleList = () => {
                                 <td className='px-2 py-2 border border-slate-700'>{result.description}</td>
                                 <td className='px-2 py-2 border border-slate-700 text-white'>
                                     <Link to={"/UpdateVehicle/" + result._id} ><button className='mx-1 bg-stone-600 rounded-xl px-2 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link>
-                                    <button onClick={() => deleteProduct(result._id)} className='mx-1 bg-red-600 rounded-xl px-2 py-1 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
+                                    <button onClick={() => deleteProduct(result._id)} className='mx-1 mt-2 bg-red-600 rounded-xl px-2 py-1 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
                                 </td>
                             </tr>
                         ))}

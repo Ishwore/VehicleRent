@@ -7,6 +7,7 @@ const UpdateVehicle = () => {
     const [name, setName] = useState("");
     const [countInStock, setQty] = useState("");
     const [registrationNo, setRegNo] = useState("");
+    const [message, showMessage] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDes] = useState("");
     const [Image, setImage] = useState("");
@@ -15,29 +16,49 @@ const UpdateVehicle = () => {
     const params = useParams();
 
     useEffect(() => {
+        const getVehicleDetails = async () => {
+            // console.log(params);
+            const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+                method: 'get',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const resultData = await result.json();
+            // console.log(resultData);
+            setcatName(resultData.category);
+            setName(resultData.name);
+            setQty(resultData.countInStock);
+            setRegNo(resultData.registrationNo);
+            setPrice(resultData.price);
+            setDes(resultData.description);
+            setImage(resultData.image);
+
+        }
+
         getVehicleDetails();
-    }, [])
+    }, [params.id])
 
 
-    const getVehicleDetails = async () => {
-        // console.log(params);
-        const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        const resultData = await result.json();
-        // console.log(resultData);
-        setcatName(resultData.category);
-        setName(resultData.name);
-        setQty(resultData.countInStock);
-        setRegNo(resultData.registrationNo);
-        setPrice(resultData.price);
-        setDes(resultData.description);
-        setImage(resultData.image);
+    // const getVehicleDetails = async () => {
+    //     // console.log(params);
+    //     const result = await fetch(`http://localhost:5000/api/product/${params.id}`, {
+    //         method: 'get',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     });
+    //     const resultData = await result.json();
+    //     // console.log(resultData);
+    //     setcatName(resultData.category);
+    //     setName(resultData.name);
+    //     setQty(resultData.countInStock);
+    //     setRegNo(resultData.registrationNo);
+    //     setPrice(resultData.price);
+    //     setDes(resultData.description);
+    //     setImage(resultData.image);
 
-    }
+    // }
 
     const updateVehicle = async () => {
         const image = Image;
@@ -51,8 +72,15 @@ const UpdateVehicle = () => {
         });
         const resultData = await result.json();
         // localStorage.setItem("vehicle", JSON.stringify(resultData));
-        console.warn(resultData);
-        navigate('/vehiclelist');
+        // console.warn(resultData);
+        if (resultData.message) {
+            showMessage(resultData.message);
+            // console.log(message);
+        } else {
+            showMessage("Successfuly data update")
+            navigate('/vehiclelist');
+        }
+
     }
     const imageUpload = async (e) => {
         const image = e.target.files[0];
@@ -74,6 +102,7 @@ const UpdateVehicle = () => {
         <div className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
             <div className="mt-2">
                 <h1 className='text-center font-bold text-2xl text-stone-600'>Update Vehicle</h1>
+                <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
             </div>
             <div className="flex mt-2">
                 <label htmlFor="catname" className="text-left font-medium text-stone-500 mt-2 ml-3">*Category Name* :</label>

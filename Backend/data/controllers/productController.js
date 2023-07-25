@@ -82,13 +82,27 @@ const updateProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (product) {
-    product.name = name
-    product.price = price
-    product.description = description
-    product.image = image
-    product.registrationNo = registrationNo
-    product.category = category
-    product.countInStock = countInStock
+    if (image === product.image) {
+      product.name = name
+      product.price = price
+      product.description = description
+      product.image = image
+      product.registrationNo = registrationNo
+      product.category = category
+      product.countInStock = countInStock
+    } else {
+      const imagePath = path.join(__dirname, '../..', await product.image);
+      fs.unlinkSync(imagePath)
+
+      product.name = name
+      product.price = price
+      product.description = description
+      product.image = image
+      product.registrationNo = registrationNo
+      product.category = category
+      product.countInStock = countInStock
+    }
+
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)
@@ -103,7 +117,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const createProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body
-
+  // console.log(rating, comment, req.params.id);
   const product = await Product.findById(req.params.id)
 
   if (product) {

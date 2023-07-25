@@ -1,26 +1,42 @@
-import React from 'react'
-import { useState, Fragment } from "react";
-import { Alert, Button } from "@material-tailwind/react";
+import React, { useState } from 'react';
 
-const Message = ({ variant, children }) => {
-    const [open, setOpen] = useState(true);
+const Message = ({ title, greeting }) => {
+  const [showMessage, setShowMessage] = useState(true);
 
-    return (
-        <Fragment>
-            {!open && (
-                <Button className="absolute" onClick={() => setOpen(true)}>
-                    Show Alert
-                </Button>
-            )}
-            <Alert variant={variant} open={open} onClose={() => setOpen(false)}>
-                {children}
-            </Alert>
-        </Fragment>
-    )
-}
+  const handleCloseMessage = () => {
+    setShowMessage(false);
+  };
 
-Message.defaultProps = {
-    variant: 'info',
-}
+  return (
+    <div className='mt-10'>
+      {showMessage && (
+        <>
+          {title === 'success' ? (
+            <div className="bg-green-400">
+              <p className='text-gray-200'>{`${title}!: ${greeting}`}</p>
+              <button onClick={handleCloseMessage} className="bg-red-800 text-white">
+                Close
+              </button>
+            </div>
+          ) : title === 'info' ? (
+            <div className="bg-yellow-500">
+              <p className='text-gray-200'>{`${title}!: ${greeting}`}</p>
+              <button onClick={handleCloseMessage} className="bg-red-800 text-white">
+                Close
+              </button>
+            </div>
+          ) : (
+            <div className="bg-red-400">
+              <p className='text-red-600'>{`${title}!: ${greeting}`}</p>
+              <button onClick={handleCloseMessage} className="bg-red-800 text-white">
+                Close
+              </button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
-export default Message
+export default Message;

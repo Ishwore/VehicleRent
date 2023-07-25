@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import Rating from "../components/Rating";
 
 const ViewVehicle = () => {
+    const auth = localStorage.getItem('user');
     const [category, setcatName] = useState("");
     const [name, setName] = useState("");
     const [countInStock, setQty] = useState("");
@@ -9,6 +11,12 @@ const ViewVehicle = () => {
     const [price, setPrice] = useState("");
     const [description, setDes] = useState("");
     const [Image, setImage] = useState("");
+    const [ratingG, setRatingG] = useState(0);
+    const [rating, setRating] = useState(0);
+    const [reviews, setReviews] = useState([]);
+    const [numReviews, setNumReviews] = useState(0);
+    const [comment, setComment] = useState("");
+    const [message, showMessage] = useState("");
     const params = useParams();
     const [vehicles, setVehicles] = useState([]);
     const navigate = useNavigate();
@@ -30,6 +38,9 @@ const ViewVehicle = () => {
             setPrice(resultData.price);
             setDes(resultData.description);
             setImage(resultData.image);
+            setRatingG(resultData.rating);
+            setNumReviews(resultData.numReviews);
+            setReviews(resultData.reviews);
 
         }
         getVehicleDetails();
@@ -64,73 +75,140 @@ const ViewVehicle = () => {
     const handleGoBack = () => {
         navigate('/');
     };
+
+    const sendReviews = async () => {
+        if (!(rating === '' || comment === '')) {
+            console.log(rating, comment, params.id, (JSON.parse(auth).token));
+            const result = await fetch(`http://localhost:5000/api/product/${params.id}/reviews`, {
+                method: 'post',
+                body: JSON.stringify({ rating, comment }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${(JSON.parse(auth).token)}`,
+                },
+            });
+            const resultData = await result.json();
+            showMessage(resultData.message);
+        } else {
+            showMessage("Enter your reviews ")
+        }
+
+    }
+
     const getImageUrl = (imageName) => {
         return `http://localhost:5000${imageName}`;
     };
 
     return (
-        // <form className="inline-grid mt-24 rounded-3xl justify-center bg-orange-300">
-        //     <div className=" mt-4">
-        //         <div>
-        //             <img
-        //                 src={getImageUrl(Image)}
-        //                 alt={name}
-        //                 className="w-max h-96 rounded-full object-cover px-8  my-4" />
-        //         </div>
-
-        //         <div className="font-bold  inline-grid ">
-        //             <span className="text-xl mt-3">Name : <span className="ml-24">{name.toUpperCase()}</span></span>
-        //             <span className="text-xl mt-2">Category : <span className="ml-28">{category}</span> </span>
-        //             <span className="text-xl mt-2">RegistrationNo : <span className="ml-10">{registrationNo}</span></span>
-        //             <span className="text-xl mt-2">Rent Price Per Day : <span className="ml-2">{price}</span></span>
-        //             <span className="text-xl mt-2">Stock: <span className="ml-40">{countInStock}</span></span>
-        //             <span className="text-xl mt-2">Description : <span >{description}</span></span>
-        //             <div className="flex text-white mb-3 mt-4 justify-between">
-        //                 <Link to={`/book/${params.id}`}>
-        //                     <button
-        //                         className='w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full' >
-        //                         Book Now
-        //                     </button>
-        //                 </Link>
-        //                 <Link to="/home" className='w-24 ml-24 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full'>Cancel</Link>
-        //             </div>
-
-        //         </div>
-
-        //     </div>
-        // </form>
         <div className="inline-grid mt-20 ">
             <button onClick={handleGoBack} className="rounded text-white text-left w-20 px-2 ml-10 bg-red-400 hover:bg-red-600 hover:font-semibold">Go Back</button>
-            <div className="grid grid-cols-2 gap-6 w-screen  mt-5 bg-stone-200">
-                <div className="col-span-1 justify-center">
+            <div className="grid grid-cols-2 gap-3  mt-5">
+                <div className="col-span-1 ml-5 w-auto justify-center ">
                     <img
                         src={getImageUrl(Image)}
                         alt={name}
-                        className="w-max h-96 rounded-xl object-cover px-8 my-4"
+                        className="w-max h-96 rounded-xl object-cover px-5 py-4 bg-stone-200"
                     />
                 </div>
+                <div className="col-span-1 grid grid-cols-2 ">
+                    <div className=" col-span-1 text-left mt-5 w-auto">
+                        <div className=" mt-5 border-b  border-gray-300">
+                            <span className="text-7xl font-normal text-gray-500">{name.toUpperCase()}</span>
+                            <p className=" my-4"></p>
+                        </div>
+                        <div className=" mt-5 border-b border-gray-300 text-gray-500">
 
-                <div className="font-bold inline-grid col-span-1 text-left">
-                    <span className="text-xl mt-3">Name : <span>{name.toUpperCase()}</span></span>
-                    <span className="text-xl mt-2">Category : <span>{category}</span> </span>
-                    <span className="text-xl mt-2">RegistrationNo : <span>{registrationNo}</span></span>
-                    <span className="text-xl mt-2">Rent Price Per Day : <span>NRs {price}</span></span>
-                    <span className="text-xl mt-2">Stock: <span>{countInStock}</span></span>
-                    <span className="text-xl mt-2">Description : <span>{description}</span> </span>
+                            <div className="my-3 text-gray-500"><Rating
+                                value={ratingG}
+                                text={`${numReviews} reviews`}
+                            /></div>
+                        </div>
+                        <div className="mt-4 border-b border-gray-300">
+                            <p className="my-3 text-gray-500">Rent Price : NRs {price} per day</p>
+                        </div>
+                        <div >
+                            <p className="my-3 text-gray-500">Description : <span>{description}</span></p>
+                        </div>
 
-                    <div className="flex text-white mb-3 mt-4 justify-between">
-                        <Link to={`/book/${params.id}`}>
-                            <button className="w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full">
-                                Book Now
-                            </button>
-                        </Link>
-                        {/* <Link to="/home" className="w-24 mr-8 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full">
+
+                    </div>
+
+                    <div className=" col-span-1 ml-3 mt-5 w-auto">
+                        <table className="border-collapse border text-gray-500 border-gray-300">
+                            <tbody>
+                                <tr className="border border-gray-300">
+                                    <td className="border border-gray-300 p-2">Rent Price : NRs {price} per day</td>
+                                </tr>
+                                <tr className="border border-gray-300">
+                                    <td className="border border-gray-300 p-2">RegistrationNo : {registrationNo}</td>
+                                </tr>
+                                <tr className="border border-gray-300">
+                                    <td className="border border-gray-300 p-2">Stock: {countInStock > 0 ? "In Stock" : "Out Stock"}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div className="flex text-white mb-3 mt-4 ml-4 justify-between">
+                            <Link to={`/book/${params.id}`}>
+                                <button className="w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full">
+                                    Book Now
+                                </button>
+                            </Link>
+                            {/* <Link to="/home" className="w-24 mr-8 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full">
                             Cancel
                         </Link> */}
+                        </div>
+                    </div>
+                </div>
+            </div >
+            <div className=" grid grid-cols-2 mt-5 mx-5 ">
+                <div className="col-span-1 mx-4 text-gray-500">
+                    <h2 className=" font-semibold text-3xl text-left"> REVIEWS</h2>
+                    <div className=" my-5 h-auto px-3 py-2 rounded ">
+                        {reviews.length === 0 && <p className=" py-3">No Reviews</p>}
+                        {reviews.map((review) => (
+                            <div key={review._id}>
+                                <div className=" bg-green-300 mt-3 rounded">
+                                    <strong className="pt-2">{review.name}</strong>
+                                    <Rating value={review.ratingG} />
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                    <p className="p-2">{review.comment}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="  mx-4 mt-4">
+                        <h2 className=" font-semibold text-2xl text-left"> WRITE A CUSTOMER REVIEW</h2>
+                        <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
+                        {auth ? <form>
+                            <div className=" text-left mt-3">
+                                <label className="text-left ml-2 mt-5">Rating  </label><br />
+                                <select className="mt-5 mb-5 h-10 w-72" value={rating} onChange={(e) => setRating(e.target.value)} required>
+                                    <option value="">Select...</option>
+                                    <option value="1">1 - Poor</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="5">5 - Excellent</option>
+                                </select>
+                                <br />
+                                <label className=" mt-5 text-left ml-2">Comment  </label><br />
+                                <textarea className="mt-5 w-72 h-24" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Enter  your comment ..">
+
+                                </textarea>
+                                <br />
+
+                                <input type="submit" onClick={sendReviews} className="mt-5 bg-yellow-600 px-3 py-3 text-white rounded" value="Submit" />
+                            </div>
+                        </form> : (
+                            <p className=" mt-4">
+                                Please <Link to="/login" className=" underline text-green-400">Login</Link> to write a review{" "}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
-
             <div className=" pt-10"  >
 
                 {vehicles.length > 0 ? <>{!(vehicles.name === name) ? <><h1 className="text-2xl text-left ml-10 text-red-400 font-bold">Available Related vehicles </h1>
