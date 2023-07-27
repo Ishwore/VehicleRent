@@ -131,7 +131,48 @@ const deleteUser = asyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 })
+// @desc    upload user profile
+// @route   post/api/users/profile/:id
+// @access  private
+const uploadProfile = asyncHandler(async (req, res) => {
+  const image = req.body.image
+  // console.log(image);
+  const user = await User.findById(req.params.id)
+  // console.log(user);
+  if (user) {
+    // if (image !== user.image ) {
+    //   const imagePath = path.join(__dirname, '../..', await user.image);
+    //   fs.unlinkSync(imagePath)
+    //   user.image = image
+    // } else 
+    // if (user.image !== '') {
+    if ((user.image !== '') && (user.image === image)) {
+      const imagePath = path.join(__dirname, '../..', await user.image);
+      fs.unlinkSync(imagePath)
+    }
+    user.image = image
+    // console.log(user);
+    const updatedUser = await user.save()
+    if (updatedUser) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        image: user.image,
+        token: generateToken(user._id),
+      })
+    }
+    else {
+      res.status(404)
+      throw new Error('No Update Profile Picture Try Again')
+    }
 
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
 // @desc    Get user by ID
 // @route   GET /api/users/:id
 // @access  Private/Admin
@@ -182,4 +223,5 @@ module.exports = {
   deleteUser,
   getUserById,
   updateUser,
+  uploadProfile,
 };

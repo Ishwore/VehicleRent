@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import CardList from './CardList'
 import { useNavigate } from 'react-router-dom';
 import profileImg from "../assets/images/userIcon.jpg";
-const ProfileComponent = () => {
+const Profile = () => {
     const auth = localStorage.getItem('user');
-    const getImageUrl = (imageName) => {
-        return `http://localhost:5000${imageName}`;
-    };
-    // useEffect(() => {
-    // })
     const navigate = useNavigate();
+    useEffect(() => {
+        if (!(auth)) {
+            navigate('/login');
+        }
+    }, [auth, navigate]);
+
+
+
+
     const [showChangeProfile, setShowChangeProfile] = useState(true);
     const [showProfileUpdate, setShowProfileUpdate] = useState(false);
     const [showChangeMyCard, setShowChangeMyCard] = useState(false);
@@ -20,6 +24,8 @@ const ProfileComponent = () => {
     const [confirmpassword, setconfirmPassword] = useState("");
     const [password, setPassword] = useState("");
     const [oldpassword, setOldPassword] = useState("");
+    const [Image, setImage] = useState("");
+    const [profileMessage, setprofileMessage] = useState("");
 
     const handleChangePassword = (e) => {
         e.preventDefault()
@@ -47,6 +53,9 @@ const ProfileComponent = () => {
         localStorage.clear();
         navigate('/');
     }
+    const getImageUrl = (imageName) => {
+        return `http://localhost:5000${imageName}`;
+    };
 
     const handleShowChangePassword = () => {
         setShowChangeProfile(false);
@@ -89,6 +98,69 @@ const ProfileComponent = () => {
         setShowChangeMyBooking(false);
         setShowChangeMyCard(false);
     };
+    const imageUpload = async (e) => {
+        const image = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const result = await fetch("http://localhost:5000/api/upload", {
+            method: 'post',
+            body: formData
+
+        });
+        const data = await result.json();
+        const imagePath = data.path; // Assuming the server returns the image path in the "path" property
+        // console.log(imagePath);
+        setImage(imagePath);
+
+
+
+
+    }
+    // const imageUpload = async () => {
+    //     const image = ImageName;
+
+    //     const formData = new FormData();
+    //     formData.append('image', image);
+    //     const result = await fetch("http://localhost:5000/api/upload", {
+    //         method: 'post',
+    //         body: formData
+
+    //     });
+    //     const data = await result.json();
+    //     const imagePath = data.path; // Assuming the server returns the image path in the "path" property
+    //     // console.log(imagePath);
+    //     setImage(imagePath);
+
+    // }
+
+    const changeProfilePicture = async () => {
+        const image = Image;
+        // console.log(image);
+        const id = JSON.parse(auth)._id;
+        // console.log(id);
+        if (image !== '') {
+            const result = await fetch(`http://localhost:5000/api/users/profile/${id}`, {
+                method: 'post',
+                body: JSON.stringify({ image }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(auth).token}`,
+                },
+            });
+            const resultData = await result.json();
+            if (resultData.message) {
+                showMessage(resultData.message)
+            } else {
+                // console.log(resultData);
+                localStorage.setItem("user", JSON.stringify(resultData));
+            }
+
+        } else {
+            setprofileMessage("Choose Image ")
+        }
+
+
+    }
 
     return (
         <div className='mt-16 inline-grid'>
@@ -158,11 +230,11 @@ const ProfileComponent = () => {
                             {/* Interface for Change Password */}
                             <div className='inline-grid'>
                                 <div>
-                                    <p> {(JSON.parse(auth).image) === '' ? <img
-                                        className="rounded-full mx-0 mt-2 w-60 h-56 object-cover  cursor-pointer" src={profileImg} alt="" /> : <img
-                                        className="rounded-full mx-0 mt-2 w-60 h-56 object-cover  cursor-pointer" src={getImageUrl((JSON.parse(auth).image))} alt="" />} </p>
-                                    <p className='mt-2'>{(JSON.parse(auth).name)}</p>
-                                    <p className=' mt-3'>Email : {(JSON.parse(auth).email)}</p>
+                                    <p> {auth && (JSON.parse(auth).image) !== '' ? <img
+                                        className="rounded-full mx-0 mt-2 w-60 h-56 object-cover  cursor-pointer" src={getImageUrl((JSON.parse(auth).image))} alt="" /> : <img
+                                        className="rounded-full mx-0 mt-2 w-60 h-56 object-cover  cursor-pointer" src={profileImg} alt="" />} </p>
+                                    <p className='mt-2'>{auth && (JSON.parse(auth).name)}</p>
+                                    <p className=' mt-3'>Email : {auth && (JSON.parse(auth).email)}</p>
 
                                 </div>
 
@@ -174,7 +246,20 @@ const ProfileComponent = () => {
                     {showProfileUpdate && (
                         <div>
                             {/* Interface for Profile Update */}
-                            <h2 className="text-xl font-bold mb-4">Profile Update</h2>
+                            <h2 className="text-2xl text-red-500 font-bold mb-4">Profile Picture Update</h2>
+                            <span >{profileMessage !== '' && <p className="mt-3 text-slate-200 bg-red-400 rounded mx-20 py-2 "> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
+
+                            <div className=' mt-14'>
+                                <label> Profile Picture : </label>
+                                <input type='file' className=' ml-6 px-3' onChange={(e) => imageUpload(e)} required />
+                            </div>
+                            <div className='mt-5 text-white justify-center'>
+                                <button className=' bg-green-500 text-lg rounded-lg  py-3 px-3 hover:text-xl hover:bg-green-600 ' onClick={changeProfilePicture} >
+                                    Change Profile Picture
+                                </button>
+                            </div>
+
+
                             {/* Add your profile update interface here */}
                         </div>
                     )}
@@ -226,8 +311,8 @@ const ProfileComponent = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
-export default ProfileComponent;
+export default Profile;
