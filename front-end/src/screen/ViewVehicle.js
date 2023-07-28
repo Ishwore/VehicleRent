@@ -41,6 +41,7 @@ const ViewVehicle = () => {
             setRatingG(resultData.rating);
             setNumReviews(resultData.numReviews);
             setReviews(resultData.reviews);
+            // console.log(resultData.rating);
 
         }
         getVehicleDetails();
@@ -48,7 +49,7 @@ const ViewVehicle = () => {
         const getRelatedDetails = async () => {
             const key = category;
             try {
-                console.log(key);
+                // console.log(key);
                 const relatedResult = await fetch(`http://localhost:5000/api/product/search/${key}`);
                 const relatedResultData = await relatedResult.json();
                 setVehicles(relatedResultData);
@@ -113,7 +114,7 @@ const ViewVehicle = () => {
                 <div className="col-span-1 grid grid-cols-2 ">
                     <div className=" col-span-1 text-left mt-5 w-auto">
                         <div className=" mt-5 border-b  border-gray-300">
-                            <span className="text-7xl font-normal text-gray-500">{name.toUpperCase()}</span>
+                            <span className="text-lg font-normal text-gray-500 ">{name.toUpperCase()}</span>
                             <p className=" my-4"></p>
                         </div>
                         <div className=" mt-5 border-b border-gray-300 text-gray-500">
@@ -171,7 +172,7 @@ const ViewVehicle = () => {
                             <div key={review._id}>
                                 <div className=" bg-green-300 mt-3 rounded">
                                     <strong className="pt-2">{review.name}</strong>
-                                    <Rating value={review.ratingG} />
+                                    <Rating value={review.rating} />
                                     <p>{review.createdAt.substring(0, 10)}</p>
                                     <p className="p-2">{review.comment}</p>
                                 </div>
