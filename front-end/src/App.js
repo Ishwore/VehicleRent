@@ -15,18 +15,28 @@ import Home from './screen/HomePage';
 import UpdateVehicle from './screen/UpdateVehicle';
 import ViewVehicle from './screen/ViewVehicle';
 import CardList from './screen/CardList';
-// import UserComponent from './components/UserComponent';
+
 import Dashbord from './screen/Dashbord';
 import Book from './screen/Book';
 import Billing from './screen/Billing';
-
+import WhyWithUs from './screen/WhyWithUs';
 import Profile from './screen/Profile';
+import ViewBooking from './screen/ViewBooking';
+// import Carousel from './components/Carousel';
+// import  from "./assets/images/safari.jpg";
 function App() {
   // const auth = localStorage.getItem('user');
+  // const images = [
+  //   './assets/images/safari.jpg',
+  //   './assets/images/safari.jpg',
+  //   './assets/images/safari.jpg',
+  //   // Add more image URLs here
+  // ];
   return (
     <div className="text-center">
       <BrowserRouter>
         <Nav />
+        {/* <Carousel className='mt-10' images={images} /> */}
         <Routes>
 
           <Route element={<PrivateComponent />}>
@@ -46,8 +56,11 @@ function App() {
           <Route path='/contactus' element={<ContactUs />} />
           <Route path='/view/:id' element={<ViewVehicle />} />
           <Route path='/card' element={<CardList />} />
-          <Route path='/billing/:id' element={<Billing />} />
+          <Route path='/billing' element={<Billing />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/search/:key' element={<Home />} exact />
+          <Route path='/whywithus' element={<WhyWithUs />} />
+          <Route path='/veiwbookingdetails/:id' element={<ViewBooking />} />
 
         </Routes>
       </BrowserRouter>

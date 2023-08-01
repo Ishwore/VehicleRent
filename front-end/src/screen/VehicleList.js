@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 const VehicleList = () => {
     const [vehicles, setVehicles] = useState([]);
     const resultData = useRef([]);
+    const [message, showMessage] = useState("");
     // const navigate = useNavigate();
     const auth = localStorage.getItem('user');
 
@@ -44,10 +45,11 @@ const VehicleList = () => {
                     Authorization: `Bearer ${JSON.parse(auth).token}`,
                 },
             });
-
-            if (result) {
-                alert("Data Delete Successfully")
+            const resultData = await result.json()
+            if (resultData.message) {
+                showMessage(resultData.message);
             }
+
         }
 
     }
@@ -60,6 +62,7 @@ const VehicleList = () => {
         <form className="inline-grid mt-28 mx-2 rounded-xl justify-center bg-stone-200">
             <div className="mt-4">
                 <h1 className='text-center font-bold text-2xl text-stone-600'>Vehicle Lists</h1>
+                <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
             </div>
             <div className="px-3 py-3">
                 <table className='border-collapse border border-slate-950 my-5  '>

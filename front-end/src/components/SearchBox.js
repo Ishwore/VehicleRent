@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const SearchBox = () => {
     const [search, setSearch] = useState("");
+    const navigate = useNavigate();
     const searchHandle = async (e) => {
-        console.warn(search);
+        // console.warn(search);  
         const key = search;
-        const result = await fetch(`http://localhost:5000/api/product/search/${key}`)
-        const resultData = await result.json();
-        console.log(resultData);
+        navigate(`/search/${key}`)
+        // const result = await fetch(`http://localhost:5000/api/product/search/${key}`)
+        // const resultData = await result.json();
+        // console.log(resultData);
     }
     // import { useHistory } from 'react-router-dom';
 

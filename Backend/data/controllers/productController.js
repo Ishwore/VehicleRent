@@ -7,20 +7,42 @@ const path = require('path');
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({})
-  res.json(products)
+  const key = req.query.key
+    ? {
+      "$or": [
+        { name: { $regex: req.query.key, $options: 'i', } },
+        { category: { $regex: req.query.key, $options: 'i', } },
+      ]
+    }
+    : {}
+
+  // console.log(req.query.key);
+  const products = await Product.find({ ...key })
+  const allproducts = await Product.find({})
+  if (products.length === 0) {
+    res.json(allproducts)
+    // console.log("all :" + allproducts);
+  } else {
+    res.json(products)
+    // console.log("product" + products);
+  }
+
 })
 
 //@desc fetch product bu search
 //@route  GET/api/products/search/:key
 // @access Public
 const getProductsBySearch = asyncHandler(async (req, res) => {
+  const key = req.query.key
+  console.log(key);
   const search = await Product.find({
-    "$or": [
-      { name: { $regex: req.params.key } },
-      { category: { $regex: req.params.key } }
-    ]
+    category: { $regex: req.params.key, $options: 'i', }
   })
+  // "$or": [
+  //   { name: { $regex: req.params.key, $options: 'i', } },
+  //   { category: { $regex: req.params.key, $options: 'i', } },
+  // ]
+  // console.log(req.query.key);
   res.json(search)
 })
 

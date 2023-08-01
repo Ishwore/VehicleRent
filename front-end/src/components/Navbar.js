@@ -21,7 +21,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="fixed flex justify-between  bg-slate-950 h-16 w-full">
+        <nav className="fixed flex justify-between  bg-slate-900 h-16 w-full">
             <div>
                 <Link to="/"> <div className=" w-14 h-14 text-end mx-5 mt-2">
                     <img className="rounded-full" src={logoImg} alt="Logo" />

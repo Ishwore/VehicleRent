@@ -111,7 +111,7 @@ const Book = () => {
                 const TotalRent = days * rent;
                 localStorage.setItem("bookingData", JSON.stringify({ "name": name, "date": date, "phone": phone, "address": address, "days": days, "payment": payment, "v_quantity": quantity, "totalRent": TotalRent }));
                 if (payment === 'cash') {
-                    navigate(`/billing/${params.id}`);
+                    navigate(`/billing`);
                 }
 
             } else {

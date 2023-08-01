@@ -64,15 +64,15 @@ const CardList = () => {
                                 <div className=" my-2 w-fit rounded-lg mx-2 flex ">
                                     <div key={card._id} />
                                     <img src={getImageUrl(card.image)} className="m-2 p-2 rounded-xl w-28 h-24" alt={card.name} />
-                                    <span className=" text-2xl font-bold pt-10 px-2">{card.name.toUpperCase()}</span>
-                                    <span className="text-sm pt-11 px-2">Category : {card.category}</span>
-                                    <span className="text-sm pt-11 px-2">Rent Price Per Day : {card.price}</span>
-                                    <span className="text-sm pt-11 px-2">RegistrationNo : {card.registrationNo}</span>
-                                    <span className="text-sm pt-11 px-2">Description : {card.description}</span>
+                                    <span className=" text-xl font-bold pt-10 px-2">{card.name.toUpperCase()}</span>
+                                    <span className="text-sm pt-11 px-1">Category : {card.category}</span>
+                                    <span className="text-sm pt-11 px-1">Rent Price Per Day : {card.price}</span>
+                                    <span className="text-sm pt-11 px-1">RegistrationNo : {card.registrationNo}</span>
+                                    <span className="text-sm pt-11 px-1">Description : {card.description}</span>
                                     <div className="inline-flex justify-end ">
                                         <button
                                             onClick={() => removeCard(card._id)}
-                                            className="bg-red-700 text-white p-2 h-10 mt-9 mx-2 rounded-md hover:bg-red-800 hover:font-medium"
+                                            className="bg-red-700 text-white p-2 h-10 mt-9 mx-1 rounded-md hover:bg-red-800 hover:font-medium"
                                         >
                                             Remove
                                         </button>
@@ -80,7 +80,7 @@ const CardList = () => {
                                             <button
                                                 className="bg-green-600 text-white p-2 mt-9 h-auto mx-2 rounded-md  hover:bg-green-700 hover:font-medium"
                                             >
-                                                Book Now
+                                                BookNow
                                             </button>
                                         </Link>
                                     </div>

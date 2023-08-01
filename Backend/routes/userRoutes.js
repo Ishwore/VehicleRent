@@ -3,8 +3,7 @@ const router = express.Router()
 const {
   authUser,
   registerUser,
-  getUserProfile,
-  updateUserProfile,
+  changePassword,
   getUsers,
   deleteUser,
   getUserById,
@@ -18,8 +17,7 @@ router.post('/login', authUser)
 router
   .route('/profile/:id')
   .post(protect, uploadProfile)
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile)
+  .put(protect, changePassword)
 router
   .route('/:id')
   .delete(protect, admin, deleteUser)

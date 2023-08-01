@@ -167,10 +167,10 @@ const ViewVehicle = () => {
                 <div className="col-span-1 mx-4 text-gray-500">
                     <h2 className=" font-semibold text-3xl text-left"> REVIEWS</h2>
                     <div className=" my-5 h-auto px-3 py-2 rounded ">
-                        {reviews.length === 0 && <p className=" py-3">No Reviews</p>}
+                        {reviews.length === 0 && <p className=" py-3 bg-red-300 rounded px-3 text-white">No Reviews</p>}
                         {reviews.map((review) => (
                             <div key={review._id}>
-                                <div className=" bg-green-300 mt-3 rounded">
+                                <div className=" bg-stone-200 py-3 mt-3 rounded">
                                     <strong className="pt-2">{review.name}</strong>
                                     <Rating value={review.rating} />
                                     <p>{review.createdAt.substring(0, 10)}</p>
@@ -203,8 +203,8 @@ const ViewVehicle = () => {
                                 <input type="submit" onClick={sendReviews} className="mt-5 bg-yellow-600 px-3 py-3 text-white rounded" value="Submit" />
                             </div>
                         </form> : (
-                            <p className=" mt-4">
-                                Please <Link to="/login" className=" underline text-green-400">Login</Link> to write a review{" "}
+                            <p className=" mt-4 bg-green-200 py-3 px-3 rounded">
+                                Please <Link to="/login" className=" underline text-green-400 hover:text-lg mx-2"> Login </Link> to write a review{" "}
                             </p>
                         )}
                     </div>

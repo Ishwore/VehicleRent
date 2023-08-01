@@ -53,20 +53,6 @@ const SignUp = () => {
 
     }
 
-    // const imageUpload = async (e) => {
-    //     const image = e.target.files[0];
-    //     const formData = new FormData();
-    //     formData.append('image', image);
-    //     const result = await fetch("http://localhost:5000/api/upload", {
-    //         method: 'post',
-    //         body: formData
-
-    //     });
-    //     const data = await result.json();
-    //     const imagePath = data.path; // Assuming the server returns the image path in the "path" property
-    //     console.log(imagePath);
-    //     setImage(imagePath);
-    // }
 
     return (
 

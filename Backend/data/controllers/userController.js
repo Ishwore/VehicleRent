@@ -79,6 +79,32 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Change user password
+// @route   PUT /api/users/profile
+// @access  Private
+const changePassword = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+
+  if (user) {
+    if (req.body.password) {
+      user.password = req.body.password
+    }
+
+    const updatedUser = await user.save()
+    // console.log(updatedUser);
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      image: updatedUser.image,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
 // @desc    Update user profile
 // @route   PUT /api/users/profile
 // @access  Private
@@ -224,4 +250,5 @@ module.exports = {
   getUserById,
   updateUser,
   uploadProfile,
+  changePassword,
 };

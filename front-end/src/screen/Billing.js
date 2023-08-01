@@ -9,20 +9,61 @@ const Billing = () => {
     const bookingData = JSON.parse(book);
     const [b_amt, setB_amt] = useState('');
     const [paid, setPaid] = useState('');
+    const [message, showMessage] = useState("");
     const navigate = useNavigate();
     useEffect(() => {
         if (!auth) {
             navigate('/login');
             // alert("You are not Login !");
         }
-
-        if (bookingData.payment === 'cash') {
-            setB_amt(bookingData.totalRent);
+        if (!(vehicle || bookingData)) {
+            navigate('/')
+        }
+        if (bookingData && bookingData.payment === 'cash') {
+            setB_amt(bookingData && bookingData.totalRent);
             setPaid(0);
         }
-    }, [bookingData, navigate, auth]);
-    const bookHandle = () => {
-        console.log(vehicle._id, bookingData.name, bookingData.address, bookingData.phone, bookingData.days, bookingData.v_quantity, bookingData.date, paid, bookingData.payment, bookingData.totalRent, b_amt);
+    }, [bookingData, navigate, auth, vehicle]);
+    const bookHandle = async () => {
+        // console.log(vehicle._id, bookingData.name, bookingData.address, bookingData.phone, bookingData.days, bookingData.v_quantity, bookingData.date, paid, bookingData.payment, bookingData.totalRent, b_amt);
+        // const address = bookingData.address
+        // const name = bookingData.name
+        // const phone = bookingData.phone
+        // const shippingAddress = [address, name, phone,];
+        const shippingAddress = { name: bookingData.name, address: bookingData.address, phone: bookingData.phone };
+
+        const paymentMethod = bookingData.payment
+        const rentDate = bookingData.date
+        const rentDays = bookingData.days
+        const totalRent = b_amt
+        const cancelMessage = " ";
+        // const image = vehicle.image
+        // const price = vehicle.price
+        // const qty = bookingData.v_quantity
+        // const vehicleId = vehicle._id
+        // const vname = vehicle.name
+        const bookingItems = { vname: vehicle.name, qty: bookingData.v_quantity, image: vehicle.image, price: vehicle.price, vehicleId: vehicle._id };
+        console.log(shippingAddress, paymentMethod, rentDate, rentDays, totalRent, bookingItems, cancelMessage);
+
+        const result = await fetch('http://localhost:5000/api/booking', {
+            method: 'post',
+            body: JSON.stringify({ shippingAddress, paymentMethod, rentDate, rentDays, totalRent, bookingItems, cancelMessage }),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${JSON.parse(auth).token}`,
+            },
+
+        })
+        const resultData = await result.json()
+        if (resultData.message) {
+            showMessage(resultData.message);
+        } else {
+            localStorage.removeItem('vehicleDetails');
+            localStorage.removeItem('bookingData');
+            alert("Vehicle is Successfully Booking !")
+            navigate('/')
+        }
+        console.log(resultData);
     }
 
     const bookCancel = () => {
@@ -34,13 +75,13 @@ const Billing = () => {
 
     return (
         <div>
-            <div className="mt-20 inline-grid">
-                <h1 className="font-extrabold"> Your Booking Information</h1>
-
+            <div className="mt-20 inline-grid mb-10">
+                <h1 className="font-extrabold text-red-500 text-xl"> Your Booking Information</h1>
+                <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
                 <div className="grid grid-cols-3 gap-6 w-screen  mt-5 ">
                     <div className="col-span-1 ">
-                        <h2 className="text-start ml-2 text-xl">Mr/Mrs <span className="font-semibold">{JSON.parse(auth).name}</span>, </h2>
-                        <p className="text-lg text-justify mx-2 mt-4"> Hello,<span className=" font-bold"> Mr/Mrs {JSON.parse(auth).name}</span> thank you choosing our organization for Rental. We will give free <span className=" font-bold">Deriver</span> for <span className=" font-bold">{vehicle.category}</span> . If you want to book {vehicle.category} click on <samp className=" font-bold"> Continue </samp> otherwise click on <samp className=" font-bold"> Cancel </samp> </p>
+                        <h2 className="text-start ml-2 text-xl">Mr/Mrs <span className="font-semibold">{auth && JSON.parse(auth).name}</span>, </h2>
+                        <p className="text-lg text-justify mx-2 mt-4"> Hello,<span className=" font-bold"> Mr/Mrs {auth && JSON.parse(auth).name}</span> thank you choosing our organization for Rental. {(vehicle && vehicle.category) === 'Bus' ? <> We will be give  <span className=" font-bold">free Deriver</span> for <span className=" font-bold">{vehicle && vehicle.category}</span> but you will be <span className=" font-bold">pay food expenditure of Deriver </span> </> : <>You have your own driver and <span className=" font-bold">give driver license photocopy</span> when you come to get {(vehicle && vehicle.category)}  </>} . If you want to book {vehicle && vehicle.category} click on <samp className=" font-bold"> Continue </samp> otherwise click on <samp className=" font-bold"> Cancel </samp> </p>
                     </div>
                     <div className="font-bold inline-grid col-span-1 mx-5 ">
                         <h4 className=" text-center">Booking Details</h4>
@@ -48,23 +89,23 @@ const Billing = () => {
                             <tbody className=" text-center my-2">
                                 <tr className="">
                                     <td>Name :</td>
-                                    <td>{bookingData.name}</td>
+                                    <td>{bookingData && bookingData.name}</td>
                                 </tr>
                                 <tr>
                                     <td>Address : </td>
-                                    <td>{bookingData.address}</td>
+                                    <td>{bookingData && bookingData.address}</td>
                                 </tr>
                                 <tr>
                                     <td>Contact Number : </td>
-                                    <td>{bookingData.phone}</td>
+                                    <td>{bookingData && bookingData.phone}</td>
                                 </tr>
                                 <tr>
                                     <td>Payment Method : </td>
-                                    <td>{bookingData.payment}</td>
+                                    <td>{bookingData && bookingData.payment}</td>
                                 </tr>
                                 <tr>
                                     <td>Vehicle Need Date : </td>
-                                    <td>{bookingData.date}</td>
+                                    <td>{bookingData && bookingData.date}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -81,26 +122,26 @@ const Billing = () => {
                             <tbody className=" text-center my-2">
                                 <tr className=" mt-3">
                                     <td>Rent Price (per day) :</td>
-                                    <td>NRs. {vehicle.price}</td>
+                                    <td>NRs. {vehicle && vehicle.price}</td>
                                 </tr>
                                 <tr>
                                     <td>Rent Day(s) : </td>
-                                    <td> x {bookingData.days}</td>
+                                    <td> x {bookingData && bookingData.days}</td>
                                 </tr>
                                 <tr>
                                     <td>Vehicle Quntity : </td>
-                                    <td> x {bookingData.v_quantity}</td>
+                                    <td> x {bookingData && bookingData.v_quantity}</td>
                                 </tr>
                                 <tr>
                                     <td colSpan="2" style={{ borderBottom: "1px solid black" }}></td>
                                 </tr>
                                 <tr>
                                     <td>Total Rent Price  </td>
-                                    <td> = NRs. {bookingData.totalRent}</td>
+                                    <td> = NRs. {bookingData && bookingData.totalRent}</td>
                                 </tr>
 
                                 <tr>
-                                    <td>Paid :</td>
+                                    <td>Paid Amount:</td>
                                     <td> - NRs. {paid}</td>
                                 </tr>
                                 <tr>
