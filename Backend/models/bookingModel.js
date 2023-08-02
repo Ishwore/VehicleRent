@@ -7,17 +7,18 @@ const bookingSchema = mongoose.Schema(
       required: true,
       ref: 'User',
     },
+    vehicleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Product',
+    },
     bookingItems: [
       {
         vname: { type: String, required: true },
         qty: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
-        vehicleId: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: 'Product',
-        },
+        category: { type: String, required: true },
       },
     ],
     shippingAddress: {

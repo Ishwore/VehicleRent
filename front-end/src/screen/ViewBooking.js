@@ -44,7 +44,7 @@ const ViewBooking = () => {
                 setQuantity(data.bookingItems[0].qty)
                 setPrice(data.bookingItems[0].price)
                 setImage(data.bookingItems[0].image)
-                setV_id(data.bookingItems[0].vehicleId)
+                setV_id(data.vehicleId)
                 setVname(data.bookingItems[0].vname)
                 // console.log(data);
 
@@ -99,7 +99,7 @@ const ViewBooking = () => {
                     </center>
                     <p className=' font-medium  text-base text-blue-600 mt-4 text-center'>{vname.toUpperCase()}</p>
                 </div>
-                <div className="w-4/12 bg-yellow-300 rounded ">
+                <div className="w-4/12 bg-slate-300 rounded ">
                     <div className="font-bold inline-grid col-span-1 mx-5  px-3 py-3">
                         <h4 className=" text-center text-red-400">Billing Details</h4>
 
@@ -107,7 +107,7 @@ const ViewBooking = () => {
                         <p className=' font-light text-left text-base text-blue-600 mt-2'><span className='mr-4'>Rent Date  :  {bookingDetail.rentDate}</span>Rent Day(s) :{bookingDetail.rentDays}  </p>
                         <p className=' font-light text-left text-base text-blue-600 mt-2'><span > Payment Method  : {bookingDetail.paymentMethod}</span> {bookingDetail && bookingDetail.createdAt && (
                             <span className='ml-4'>Booking Date: {bookingDetail.createdAt.split('T')[0]}</span>)} </p>
-                        <table className='border-collapse border border-slate-950 mt-5 mb-5 '>
+                        <table className='border-collapse border  border-slate-950 mt-5 mb-5 '>
                             <tbody className=" text-center my-2 text-slate-600">
                                 <tr className=" mt-3">
                                     <td>Rent Price (per day) :</td>
@@ -125,12 +125,12 @@ const ViewBooking = () => {
                                     <td colSpan="2" style={{ borderBottom: "1px solid black" }}></td>
                                 </tr>
                                 <tr>
-                                    <td>Total Rent Price  </td>
+                                    <td >Total Rent Price  </td>
                                     <td> <span className='font-extralight text-base mx-2'> NRs. </span>{bookingDetail.totalRent} </td>
                                 </tr>
 
                                 <tr>
-                                    <td>Paid Amount:</td>
+                                    <td > Paid Amount:</td>
                                     <td> -<span className='font-extralight text-base mx-2'> NRs. </span> {bookingDetail.isPaid ? <>{bookingDetail.totalRent}</> : <> 0</>} </td>
                                 </tr>
                                 <tr>
@@ -140,7 +140,7 @@ const ViewBooking = () => {
                                     <td colSpan="2" style={{ borderBottom: "1px solid black" }}></td>
                                 </tr>
                                 <tr>
-                                    <td>Total Bill Amount </td>
+                                    <td >Total Bill Amount </td>
                                     <td> <span className='font-extralight text-base mx-2'> NRs. </span> {bookingDetail.totalRent} </td>
                                 </tr>
                             </tbody>

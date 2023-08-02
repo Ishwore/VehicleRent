@@ -63,7 +63,7 @@ const BookingHistory = () => {
                                     <span className="text-sm pt-11 px-1">Book Date : {myBooking.rentDate}</span>
                                     <span className="text-sm pt-11 px-1">Total Rent : {myBooking.totalRent}</span>
                                     <div className="ml-3 justify-end ">
-                                        <Link to={`/view/${myBooking.bookingItems[0].vehicleId}`}>
+                                        <Link to={`/view/${myBooking.vehicleId}`}>
                                             <button
                                                 className="bg-green-600 text-white p-2 mt-9 h-auto mx-2 rounded-md  hover:bg-green-700 hover:font-medium"
                                             >
