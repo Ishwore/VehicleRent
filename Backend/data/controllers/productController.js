@@ -34,7 +34,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @access Public
 const getProductsBySearch = asyncHandler(async (req, res) => {
   const key = req.query.key
-  console.log(key);
+  // console.log(key);
   const search = await Product.find({
     category: { $regex: req.params.key, $options: 'i', }
   })

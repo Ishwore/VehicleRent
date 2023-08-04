@@ -17,19 +17,21 @@ const Navbar = () => {
 
     const logout = () => {
         localStorage.clear();
+        window.location.reload();
         navigate('/');
+
     }
 
     return (
         <nav className="fixed flex justify-between  bg-slate-900 h-16 w-full">
             <div>
-                <Link to="/"> <div className=" w-14 h-14 text-end mx-5 mt-2">
+                <Link to='/'> <div className=" w-14 h-14 text-end mx-5 mt-2">
                     <img className="rounded-full" src={logoImg} alt="Logo" />
                 </div>
                 </Link>
             </div>
             <div>
-                <SearchBox />
+                {auth && (JSON.parse(auth).isAdmin) ? '' : <SearchBox />}
             </div>
             <div className="flex">
                 {auth && !(JSON.parse(auth).isAdmin) && (<>
@@ -71,6 +73,7 @@ const Navbar = () => {
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/dashbord">Dashbord</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/addvehicle">AddVehicle</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/userlist">UserList</Link></li></button>
+                                <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/userbookings">BookingList</Link></li></button>
                                 <button className="px-3 mx-2 rounded-2xl w-18 h-10 hover:font-bold hover:bg-slate-600 "><li><Link to="/vehiclelist">VehicleList</Link></li></button>
                             </ul>
                         </div>

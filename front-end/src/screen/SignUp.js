@@ -38,6 +38,7 @@ const SignUp = () => {
                     // console.log(message);
                 } else {
                     localStorage.setItem('user', JSON.stringify(resultData));
+                    // window.location.reload();
                     navigate('/');
                 }
 

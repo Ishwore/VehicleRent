@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/Rating";
+import CarouselComponent from "../components/Carousel";
 // import Carousel from "../components/Carousel";
 
 const HomePage = () => {
@@ -63,28 +64,11 @@ const HomePage = () => {
 
     return (
         <div className="inline-grid pt-20"  >
-            {/* <div className=" mt-5">
-                {images.map((imageData) => (
-                    <Carousel key={imageData._id} images={imageData.image} />
-                ))}
-            </div> */}
+            {!key && <CarouselComponent />}
             {key && <button onClick={handleGoBack} className="rounded text-white text-left w-20 px-2 ml-10 bg-red-400 hover:bg-red-600 hover:font-semibold">Go Back</button>}
-            {/* <div className=" bg-slate-400">
-                {!key && <> {vehicles.length > 0 && <> {
-                    vehicles.map((vehicle) => (
-                        <div
-                            key={vehicle._id}
-                            className='mt-8 bg-stone-200 p-4 rounded-lg shadow-lg  '
-                        >
-                            {Array.isArray(vehicle.image) && vehicle.image.length > 0 && (
-                                <Carousel images={vehicle.image} />
-                            )}
 
-                        </div>
-                    ))}</>} </>}
-            </div> */}
-
-            <div className="grid grid-cols-3 gap-4 mx-10">
+            {!key && <h1 className=" mt-24 text-red-500 text-3xl font-bold text-left ml-8"> Available vehicles </h1>}
+            <div className="grid grid-cols-3 gap-4 mx-10 mt-5">
 
                 {vehicles.length > 0 ? <> {
                     vehicles.map((vehicle) => (

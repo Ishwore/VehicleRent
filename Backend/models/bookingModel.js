@@ -38,7 +38,6 @@ const bookingSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-
     totalRent: {
       type: Number,
       required: true,

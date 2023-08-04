@@ -69,7 +69,9 @@ const Profile = () => {
     };
     const logout = () => {
         localStorage.clear();
+        // window.location.reload();
         navigate('/');
+
     }
     const getImageUrl = (imageName) => {
         return `http://localhost:5000${imageName}`;
@@ -206,7 +208,7 @@ const Profile = () => {
                                     }`}
                                 onClick={handleShowChangeMyCard}
                             >
-                                My Card
+                                <i class="bi bi-cart"></i>  My Card
                             </button>
                             <button
                                 className={`bg-blue-500 text-white py-2 px-4 rounded-md mb-2 ${showChangeMyBooking ? 'text-xl bg-green-500' : ''

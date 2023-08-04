@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
 
         <div className="w-4/12  ">
-          <h2 className='text-yellow-400 mt-3 font-bold text-2xl'>Usefull Links</h2>
+          <h2 className='text-yellow-400 mt-3 font-bold text-2xl'>UseFull Links</h2>
           <ul className='inline-grid my-2'>
             <a href='/aboutus'>  <button> <li className='text-yellow-400 font-medium py-1'>AboutUs</li></button> </a>
             <a href='/contactus'>  <button> <li className='text-yellow-400 font-medium py-1'>ContactUs </li></button> </a>

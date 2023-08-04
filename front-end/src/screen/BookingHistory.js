@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 const BookingHistory = () => {
     const auth = localStorage.getItem('user');
     const [myBookings, setMyBookings] = useState([]);
+    const [message, showMessage] = useState("");
     // const [bookingItems, setBookingItems] = useState([]);
     // const [bookingItems, setBookingItems] = useState([]);
     const navigate = useNavigate();
@@ -24,9 +25,10 @@ const BookingHistory = () => {
                 // setBookingItems(data.bookingItems);
                 // console.log(bookingItems);
                 setMyBookings(data);
-                console.log(data);
+                // console.log(data);
             } catch (error) {
-                console.error("Error fetching vehicles:", error);
+                showMessage("Error fetching vehicles:", error)
+                // console.error();
             }
         };
 
@@ -46,6 +48,8 @@ const BookingHistory = () => {
         <form className="inline-grid mt-6 ">
             <div >
                 <h1 className="text-red-400 font-bold text-2xl">My Booking History List</h1>
+                <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
+
                 <div className="inline-grid">
                     {myBookings.length > 0 ? <> {
                         myBookings.map((myBooking) => (

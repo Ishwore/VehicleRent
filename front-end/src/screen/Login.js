@@ -34,7 +34,8 @@ const Login = () => {
         } else {
             localStorage.setItem("user", JSON.stringify(resultData));
             // setCookie('user', JSON.stringify(resultData));
-            navigate("/");
+            window.location.reload();
+            navigate('/');
         }
 
 
