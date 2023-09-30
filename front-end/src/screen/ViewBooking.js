@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
+import KhaltiPaymentComponent from './Khalti';
 
 
 const ViewBooking = () => {
@@ -11,6 +12,9 @@ const ViewBooking = () => {
     const [allBookingDetails, setAllBookingDetails] = useState([])
     const [totalBookingQty, setTotalBookingQty] = useState('')
     const [totalVehicleQty, setTotalVehicleQty] = useState('')
+    const [day, setDay] = useState("");
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
     // const [bookingItems, setbookingItems] = useState([]);
     const [qty, setQty] = useState("");
     const [currentDate, setCurrentDate] = useState('');
@@ -24,6 +28,7 @@ const ViewBooking = () => {
     const [quantity, setQuantity] = useState("");
     const [maxQty, setMaxQty] = useState("");
     const [message, showMessage] = useState("");
+
     // const [message, showMessage] = useState("");
     useEffect(() => {
         if (!(auth)) {
@@ -41,6 +46,8 @@ const ViewBooking = () => {
                 });
                 const data = await response.json();
                 setbookingDetail(data);
+                setStartDate(new Date(data.fromDate));
+                setEndDate(new Date(data.untilDate));
                 setAddress(data.shippingAddress.address);
                 // setbookingItems(data.bookingItems);
                 setName(data.shippingAddress.name)
@@ -105,54 +112,93 @@ const ViewBooking = () => {
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             setCurrentDate(`${year}-${month}-${day}`);
+            const timeDifference = endDate - startDate;
+            const days = timeDifference / (1000 * 60 * 60 * 24) + 1;
+            setDay(days);
         };
         formatDate();
 
 
+        // const calculateTotalQuantity = () => {
+        //     let totalQty = 0;
+        //     let rentDate1start = new Date(bookingDetail.rentDate);
+        //     let rentDate1end = '';
+        //     let rentDate2start = '';
+        //     let rentDate2end = '';
+        //     let rentDays1 = parseInt(bookingDetail.rentDays); // Ensure it's a number
+
+        //     let qty1 = 0;
+        //     let qty2 = 0;
+        //     let qty3 = 0;
+        //     let rentDays2 = '';
+
+        //     if (rentDays1 !== 1) { // Make sure it's not a string comparison
+        //         rentDate1start.setDate(rentDate1start.getDate() + rentDays1);
+        //         rentDate1end = new Date(rentDate1start); // Create a new Date object for end date
+        //     }
+
+        //     for (let i = 0; i < allBookingDetails.length; i++) {
+        //         rentDays2 = parseInt(allBookingDetails[i].rentDays); // Ensure it's a number
+        //         rentDate2start = new Date(allBookingDetails[i].rentDate);
+
+        //         if (rentDays1 === 1 && rentDays2 === 1) {
+        //             if (rentDate1start.getTime() === rentDate2start.getTime()) { // Compare using getTime() method
+        //                 qty1 += allBookingDetails[i].bookingItems[0].qty;
+        //             }
+        //         } else if (rentDays1 === 1) {
+        //             rentDate2end = new Date(rentDate2start); // Create a new Date object for end date
+        //             rentDate2end.setDate(rentDate2start.getDate() + rentDays2);
+
+        //             if (rentDate1start >= rentDate2start && rentDate1start <= rentDate2end) {
+        //                 qty2 += allBookingDetails[i].bookingItems[0].qty;
+        //             }
+        //         } else {
+        //             rentDate2end = new Date(rentDate2start); // Create a new Date object for end date
+        //             rentDate2end.setDate(rentDate2start.getDate() + rentDays2);
+
+        //             if (rentDate1start >= rentDate2start && rentDate1end <= rentDate2end) {
+        //                 qty3 += allBookingDetails[i].bookingItems[0].qty;
+        //             }
+        //         }
+
+        //         totalQty = qty1 + qty2 + qty3;
+        //     }
+        //     setTotalBookingQty(totalQty);
+        //     setMaxQty(totalVehicleQty - totalQty)
+        //     // setMaxQty(totalVehicleQty-totalQty);
+        // };
         const calculateTotalQuantity = () => {
             let totalQty = 0;
-            let rentDate1start = new Date(bookingDetail.rentDate);
-            let rentDate1end = '';
+            let rentDate1start = startDate;
+            let rentDate1end = endDate;
             let rentDate2start = '';
             let rentDate2end = '';
-            let rentDays1 = parseInt(bookingDetail.rentDays); // Ensure it's a number
-
             let qty1 = 0;
             let qty2 = 0;
             let qty3 = 0;
-            let rentDays2 = '';
-
-            if (rentDays1 !== 1) { // Make sure it's not a string comparison
-                rentDate1start.setDate(rentDate1start.getDate() + rentDays1);
-                rentDate1end = new Date(rentDate1start); // Create a new Date object for end date
-            }
+            let qty4 = 0;
 
             for (let i = 0; i < allBookingDetails.length; i++) {
-                rentDays2 = parseInt(allBookingDetails[i].rentDays); // Ensure it's a number
-                rentDate2start = new Date(allBookingDetails[i].rentDate);
-
-                if (rentDays1 === 1 && rentDays2 === 1) {
-                    if (rentDate1start.getTime() === rentDate2start.getTime()) { // Compare using getTime() method
+                rentDate2start = new Date(allBookingDetails[i].fromDate);
+                rentDate2end = new Date(allBookingDetails[i].untilDate);
+                if (allBookingDetails[i].cancel === false) {
+                    if (rentDate1start >= rentDate2start || rentDate1end <= rentDate2end) {
                         qty1 += allBookingDetails[i].bookingItems[0].qty;
                     }
-                } else if (rentDays1 === 1) {
-                    rentDate2end = new Date(rentDate2start); // Create a new Date object for end date
-                    rentDate2end.setDate(rentDate2start.getDate() + rentDays2);
-
-                    if (rentDate1start >= rentDate2start && rentDate1start <= rentDate2end) {
+                    if ((rentDate1start >= rentDate2start && rentDate1start <= rentDate2end) || rentDate1end >= rentDate2end) {
                         qty2 += allBookingDetails[i].bookingItems[0].qty;
                     }
-                } else {
-                    rentDate2end = new Date(rentDate2start); // Create a new Date object for end date
-                    rentDate2end.setDate(rentDate2start.getDate() + rentDays2);
-
-                    if (rentDate1start >= rentDate2start && rentDate1end <= rentDate2end) {
+                    if (rentDate1start <= rentDate2start || (rentDate1end <= rentDate2end && rentDate1end >= rentDate2start)) {
                         qty3 += allBookingDetails[i].bookingItems[0].qty;
+                    }
+                    if (rentDate1start <= rentDate2start || rentDate1end >= rentDate2end) {
+                        qty4 += allBookingDetails[i].bookingItems[0].qty;
                     }
                 }
 
-                totalQty = qty1 + qty2 + qty3;
+
             }
+            totalQty = qty1 + qty2 + qty3 + qty4;
             setTotalBookingQty(totalQty);
             setMaxQty(totalVehicleQty - totalQty)
             // setMaxQty(totalVehicleQty-totalQty);
@@ -160,7 +206,9 @@ const ViewBooking = () => {
 
         calculateTotalQuantity();
 
-    }, [allBookingDetails, bookingDetail.rentDate, bookingDetail.rentDays, totalVehicleQty]);
+        calculateTotalQuantity();
+
+    }, [allBookingDetails, endDate, startDate, totalVehicleQty]);
 
 
     // console.log(totalBookingQty, currentDate);
@@ -190,11 +238,11 @@ const ViewBooking = () => {
 
 
     const updateHandleAddress = async () => {
-        const rentDate = bookingDetail.rentDate;
+        const fromDate = new Date(bookingDetail.fromDate);
         // formatDate();
         // console.log(rentDate, currentDate);
 
-        if (rentDate > currentDate) {
+        if (fromDate > currentDate) {
             if (!(address === '' || name === '' || phone === '')) {
                 // console.log(quantity, address, name, phone);
                 const shippingAddress = { name: name, address: address, phone: phone };
@@ -236,11 +284,11 @@ const ViewBooking = () => {
     const updateHandleQty = async () => {
         // calculateTotalQuantity();
         // formatDate();
-        const rentDate = bookingDetail.rentDate;
-
+        // const startDate = new Date(bookingDetail.fromDate);
+        // const endDate = new Date(bookingDetail.untilDate)
         // console.log(rentDate, currentDate);
         // console.log(totalVehicleQty, totalBookingQty);
-        if (rentDate > currentDate) {
+        if (startDate > currentDate) {
             if (!(quantity === '')) {
                 // console.log(totalVehicleQty, totalBookingQty);
                 if (totalVehicleQty > totalBookingQty) {
@@ -252,7 +300,7 @@ const ViewBooking = () => {
                         const shippingAddress = '';
                         // console.log(shippingAddress);
                         const qty = quantity;
-                        const totalRent = qty * price;
+                        const totalRent = day * qty * price;
                         console.log(shippingAddress, qty, totalRent);
                         // console.log(params.id);
                         const response = await fetch(`http://localhost:5000/api/booking/update/${params.id}`, {
@@ -311,7 +359,7 @@ const ViewBooking = () => {
                         <h4 className=" text-center text-red-400">Billing Details</h4>
 
                         <p className=' font-light text-left text-base text-blue-600 mt-2'>Vehicle Id  :  # {v_id}</p>
-                        <p className=' font-light text-left text-base text-blue-600 mt-2'><span className='mr-4'>Rent Date  :  {bookingDetail.rentDate}</span>Rent Day(s) :{bookingDetail.rentDays}  </p>
+                        <p className=' font-light text-left text-base text-blue-600 mt-2'><span className='mr-4'>From Date  :  {bookingDetail.fromDate}</span>Until Date :{bookingDetail.untilDate}  </p>
                         <p className=' font-light text-left text-base text-blue-600 mt-2'><span > Payment Method  : {bookingDetail.paymentMethod}</span> {bookingDetail && bookingDetail.createdAt && (
                             <span className='ml-4'>Booking Date: {bookingDetail.createdAt.split('T')[0]}</span>)} </p>
                         <table className='border-collapse border  border-slate-950 mt-5 mb-5 '>
@@ -322,10 +370,10 @@ const ViewBooking = () => {
                                 </tr>
                                 <tr>
                                     <td>Rent Day(s) : </td>
-                                    <td><span className='font-extralight text-lg mr-2'>x</span> {bookingDetail.rentDays}  </td>
+                                    <td><span className='font-extralight text-lg mr-2'>x</span> {day}  </td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Quntity : </td>
+                                    <td>Booked Quntity : </td>
                                     <td><span className='font-extralight text-lg mr-3'>x</span> {qty}</td>
                                 </tr>
                                 <tr>
@@ -352,6 +400,8 @@ const ViewBooking = () => {
                                 </tr>
                             </tbody>
                         </table>
+
+                        <KhaltiPaymentComponent id={params.id} name={vname} vid={v_id} />
 
                     </div>
 
@@ -380,8 +430,8 @@ const ViewBooking = () => {
                             </div>
 
                             <div className="flex mt-6 mb-8">
-                                <input type='submit' value="UpdateShippingAddress" onClick={updateHandleAddress} className='px-5 py-3 text-white bg-green-600 rounded-2xl' />
-                                <input type='submit' value="UpdateBookingQty" onClick={updateHandleQty} className='px-5 ml-2 py-3 text-white bg-green-600 rounded-2xl ' />
+                                <input type='submit' value="UpdateShippingAddress" onClick={updateHandleAddress} className={` px-5 py-3 text-white rounded-2xl ${(startDate >= currentDate) ? ' bg-slate-400' : 'bg-green-600 '} `} />
+                                <input type='submit' value="UpdateBookingQty" onClick={updateHandleQty} className={`px-5 ml-2 py-3 text-white rounded-2xl ${(startDate >= currentDate) ? 'bg-slate-400' : 'bg-green-600 '} `} />
 
                             </div>
                         </div>

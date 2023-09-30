@@ -208,7 +208,7 @@ const Profile = () => {
                                     }`}
                                 onClick={handleShowChangeMyCard}
                             >
-                                <i class="bi bi-cart"></i>  My Card
+                                <i className="bi bi-cart"></i>  My Card
                             </button>
                             <button
                                 className={`bg-blue-500 text-white py-2 px-4 rounded-md mb-2 ${showChangeMyBooking ? 'text-xl bg-green-500' : ''

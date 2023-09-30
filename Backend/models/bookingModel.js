@@ -30,12 +30,12 @@ const bookingSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    rentDate: {
+    fromDate: {
       type: String,
       required: true,
     },
-    rentDays: {
-      type: Number,
+    untilDate: {
+      type: String,
       required: true,
     },
     totalRent: {

@@ -24,16 +24,15 @@ import Profile from './screen/Profile';
 import ViewBooking from './screen/ViewBooking';
 import UserBook from './screen/UserBook';
 import ViewUserBookingDetails from './screen/UserBookingDetails';
-// import Carousel from './components/Carousel';
-// import  from "./assets/images/safari.jpg";
+import ForgetPassword from './screen/ForgetPassword';
+import ChangePassword from './screen/ChangePassword'
+import UpdateUser from './screen/UpdateUser';
+import ViewUser from './screen/ViewUser';
+// import KhaltiPaymentComponent from './screen/Khalti';
+
 function App() {
   const auth = localStorage.getItem('user');
-  // const images = [
-  //   './assets/images/safari.jpg',
-  //   './assets/images/safari.jpg',
-  //   './assets/images/safari.jpg',
-  //   // Add more image URLs here
-  // ];
+
   return (
     <div className="text-center">
       <BrowserRouter>
@@ -51,6 +50,8 @@ function App() {
             <Route path='/veiwuserbookingdetails/:id' element={<ViewUserBookingDetails />} />
             <Route path='/dashbord' element={<Dashboard />} exact />
             <Route path='/updatevehicle/:id' element={<UpdateVehicle />} />
+            <Route path='/updateuser/:id' element={<UpdateUser />} />
+            <Route path='/viewuser/:id' element={<ViewUser />} />
             <Route path='/addvehicle' element={<AddVehicle />} />
             <Route path='/userlist' element={<UserList />} />
             <Route path='/vehiclelist' element={<VehicleList />} />
@@ -68,9 +69,11 @@ function App() {
           <Route path='/billing' element={<Billing />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/search/:key' element={<Home />} exact />
+          {/* <Route path='/khalti' element={<KhaltiPaymentComponent />} /> */}
           <Route path='/whywithus' element={<WhyWithUs />} />
           <Route path='/veiwbookingdetails/:id' element={<ViewBooking />} />
-
+          <Route path='/forgetpassword' element={<ForgetPassword />} />
+          <Route path='/changepassword' element={<ChangePassword />} />
         </Routes>
       </BrowserRouter>
       <Footer />

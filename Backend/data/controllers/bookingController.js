@@ -10,8 +10,8 @@ const addBookingItems = asyncHandler(async (req, res) => {
     shippingAddress,
     paymentMethod,
     vehicleId,
-    rentDate,
-    rentDays,
+    fromDate,
+    untilDate,
     totalRent,
   } = req.body
 
@@ -26,8 +26,8 @@ const addBookingItems = asyncHandler(async (req, res) => {
       shippingAddress,
       paymentMethod,
       vehicleId,
-      rentDate,
-      rentDays,
+      fromDate,
+      untilDate,
       totalRent,
     })
 

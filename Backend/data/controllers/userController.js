@@ -1,6 +1,9 @@
 const asyncHandler = require('express-async-handler');
 const generateToken = require('../../utils/generateToken.js');
+const generateOTP = require('../../utils/generateOTP.js');
 const User = require('../../models/userModel.js');
+const nodemailer = require('nodemailer');
+const gererateOTP = require('../../utils/generateOTP.js');
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -25,6 +28,47 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
+
+// @desc    send otp message
+// @route   get /api/users/sendMail
+// @access  Public
+const sendMail = asyncHandler(async (req, res) => {
+  const { email } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (user) {
+    const transporter = nodemailer.createTransport({
+      // host: "smtp.ethereal.email",
+      // port: 587,
+      service: "gmail",
+      auth: {
+        user: 'chaudharyishwore@gmail.com',
+        pass: 'ffuvuysbjvamtxxg'
+      }
+    });
+
+    const OTP = gererateOTP()
+
+    const info = await transporter.sendMail({
+      from: '" Vrent Company " <vrent@gmail.com>', // sender address
+      to: "chaudharyishwore81@gmail.com", // list of receivers
+      subject: "Conformation Code ", // Subject line
+      text: `Vrent Company send Conformation code is " ${OTP} " do not share anyone.`, // plain text body
+    });
+
+    res.json({
+      _id: user._id,
+      otp: OTP,
+      token: generateToken(user._id),
+
+    });
+
+  } else {
+    res.status(401)
+    throw new Error('Invalid email')
+  }
+})
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
@@ -251,4 +295,5 @@ module.exports = {
   updateUser,
   uploadProfile,
   changePassword,
+  sendMail,
 };

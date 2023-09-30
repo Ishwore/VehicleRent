@@ -16,6 +16,9 @@ const ViewUserBookingDetails = () => {
     const [price, setPrice] = useState("")
     const [v_id, setV_id] = useState('');
     const [vname, setVname] = useState("");
+    const [day, setDay] = useState("");
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
 
     useEffect(() => {
         const fetchMyBookingDetails = async () => {
@@ -33,6 +36,8 @@ const ViewUserBookingDetails = () => {
                 setName(data.shippingAddress.name)
                 setPhone(data.shippingAddress.phone)
                 setQty(data.bookingItems[0].qty)
+                setStartDate(new Date(data.fromDate));
+                setEndDate(new Date(data.untilDate));
                 setPrice(data.bookingItems[0].price)
                 setImage(data.bookingItems[0].image)
                 setV_id(data.vehicleId)
@@ -49,6 +54,16 @@ const ViewUserBookingDetails = () => {
 
     }, [navigate, auth, params.id])
 
+
+    useEffect(() => {
+        const formatDate = () => {
+            const timeDifference = endDate - startDate;
+            const days = timeDifference / (1000 * 60 * 60 * 24) + 1;
+            setDay(days);
+        };
+        formatDate();
+
+    }, [endDate, startDate]);
     const getImageUrl = (imageName) => {
         return `http://localhost:5000${imageName}`;
     };
@@ -72,7 +87,7 @@ const ViewUserBookingDetails = () => {
                         <h4 className=" text-center text-red-500">Billing Details</h4>
 
                         <p className=' font-light text-left text-base text-blue-600 mt-2'>Vehicle Id  :  # {v_id}</p>
-                        <p className=' font-light text-left text-base text-blue-600 mt-2'><span className='mr-4'>Rent Date  :  {bookingDetail.rentDate}</span>Rent Day(s) :{bookingDetail.rentDays}  </p>
+                        <p className=' font-light text-left text-base text-blue-600 mt-2'><span className='mr-4'>From Date  :  {bookingDetail.fromDate}</span>Until Date :{bookingDetail.untilDate}    </p>
                         <p className=' font-light text-left text-base text-blue-600 mt-2'><span > Payment Method  : {bookingDetail.paymentMethod}</span> {bookingDetail && bookingDetail.createdAt && (
                             <span className='ml-4'>Booking Date: {bookingDetail.createdAt.split('T')[0]}</span>)} </p>
                         <table className='border-collapse border  border-slate-950 mt-5 mb-5 '>
@@ -83,10 +98,10 @@ const ViewUserBookingDetails = () => {
                                 </tr>
                                 <tr>
                                     <td>Rent Day(s) : </td>
-                                    <td><span className='font-extralight text-lg mr-2'>x</span> {bookingDetail.rentDays}  </td>
+                                    <td><span className='font-extralight text-lg mr-2'>x</span> {day}  </td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Quntity : </td>
+                                    <td>Booked Quntity : </td>
                                     <td><span className='font-extralight text-lg mr-3'>x</span> {qty}</td>
                                 </tr>
                                 <tr>
@@ -119,7 +134,7 @@ const ViewUserBookingDetails = () => {
 
                 </div>
                 <div className="w-4/12 bg-slate-300  ">
-                    <h4 className=" text-center font-bold text-lg text-red-500 mt-3">shipping Address</h4>
+                    <h4 className=" text-center font-bold text-lg text-red-500 mt-3">Shipping Address</h4>
                     <div className="font-bold inline-grid mx-5  mt-5">
                         <div className=''>
                             <div className="flex mt-2 text-base">

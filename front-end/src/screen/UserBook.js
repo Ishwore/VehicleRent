@@ -34,7 +34,7 @@ const UserBook = () => {
     return (
         <div className='mt-24  inline-grid'>
             <div className='mt-5'>
-                <h2 className='text-center font-extrabold text-2xl text-stone-600'>This is User Book Page</h2>
+                <h2 className='text-center font-extrabold text-2xl text-stone-600'>User Book List</h2>
             </div>
             <div className="inline-grid w-full">
                 {allBookings.length > 0 ? <> {
@@ -48,12 +48,14 @@ const UserBook = () => {
                                 <div key={Booking._id} />
 
                                 <img src={getImageUrl(Booking.bookingItems[0].image)} className="m-2 p-2 rounded-xl w-28 h-24" alt={Booking.name} />
-                                <span className=" text-xl font-bold pt-10 px-2">{Booking.bookingItems[0].vname.toUpperCase()}</span>
-                                <span className="text-sm pt-11 px-1">Rent Price Per Day : {Booking.bookingItems[0].price}</span>
-                                <span className="text-sm pt-11 px-1">Qantity : {Booking.bookingItems[0].qty}</span>
-                                <span className="text-sm pt-11 px-1">Rent Days : {Booking.rentDays}</span>
-                                <span className="text-sm pt-11 px-1">Book Date : {Booking.rentDate}</span>
-                                <span className="text-sm pt-11 px-1">Total Rent : {Booking.totalRent}</span>
+                                <span className=" text-lg font-bold pt-10 px-2">{Booking.bookingItems[0].vname.toUpperCase()}</span>
+                                {/* <span className="text-sm pt-11 px-1">Rent Price Per Day : {Booking.bookingItems[0].price}</span> */}
+                                {/* <span className="text-sm pt-11 px-1">Qantity : {Booking.bookingItems[0].qty}</span>
+                                <span className="text-sm pt-11 px-1">Rent Days : {Booking.rentDays}</span> */}
+                                <span className="text-lg font-bold pt-11 px-1">From Date : {Booking.fromDate}</span>
+                                <span className="text-lg font-bold pt-11 px-1">Until Date : {Booking.untilDate}</span>
+                                {/* <span className="text-sm pt-11 px-1">Total Rent : {Booking.totalRent}</span> */}
+                                <span className="text-lg  font-bold text-red-400 pt-11 px-1">Booking Cancel : {Booking.cancel ? 'Yes' : 'No'}</span>
 
                                 <div className="inline-flex text-right">
                                     <Link to={`/veiwuserbookingdetails/${Booking._id}`}>

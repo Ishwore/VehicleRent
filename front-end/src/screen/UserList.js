@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { Navigate } from "react-router-dom";
-
+import { Link } from "react-router-dom"
+// import {  useNavigate } from "react-router-dom"
 const UserList = () => {
+    // const navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const resultData = useRef([]);
     const auth = localStorage.getItem('user');
@@ -29,7 +30,7 @@ const UserList = () => {
     }, [auth]);
 
     console.warn(users);
-    const deleteProduct = async (id) => {
+    const deleteUser = async (id) => {
         const answer = window.confirm("You want to delete User !");
         if (answer === true) {
             const result = await fetch(`http://localhost:5000/api/users/${id}`, {
@@ -43,6 +44,13 @@ const UserList = () => {
             }
         }
     }
+    // const updateUser = async (id) => {
+    //     const answer = window.confirm("You want to update User Details !");
+    //     if (answer === true) {
+    //         // console.log("Confirm");
+    //         navigate(`/updateuser/${id}`);
+    //     }
+    // }
 
     return (
         <form className="inline-grid mt-28 rounded-3xl justify-center bg-stone-200">
@@ -57,6 +65,7 @@ const UserList = () => {
                             <th className='px-4 py-2 border border-slate-700'>User Name</th>
                             <th className='px-4 py-2 border border-slate-700'>Email</th>
                             <th className='px-4 py-2 border border-slate-700'>isAdmin</th>
+                            {/* <th className='px-4 py-2 border border-slate-700'>Image</th> */}
                             <th className='px-4 py-2 border border-slate-700'>Password</th>
                             <th className='px-4 py-2 border border-slate-700'>Actions</th>
                         </tr>
@@ -68,10 +77,13 @@ const UserList = () => {
                                 <td className='px-4 py-2 border border-slate-700'>{result.name}</td>
                                 <td className='px-4 py-2 border border-slate-700'>{result.email}</td>
                                 <td className='px-4 py-2 border border-slate-700'>{result.isAdmin ? "Yes" : "No"}</td>
+                                {/* <td className='px-4 py-2 border border-slate-700'>{result.image}</td> */}
                                 <td className='px-4 py-2 border border-slate-700'>{result.password}</td>
                                 <td className='px-4 py-2 border border-slate-700 text-white'>
-                                    <button className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>View</button>
-                                    <button onClick={() => deleteProduct(result._id)} className='mx-2 bg-red-600 rounded-xl py-1 px-4 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
+                                    <Link to={"/viewuser/" + result._id} ><button className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>View</button></Link>
+                                    {/* <button onClick={() => updateUser(result._id)} className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button> */}
+                                    {/* <Link to={"/updateuser/" + result._id} ><button className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link> */}
+                                    <button onClick={() => deleteUser(result._id)} className='mx-2 bg-red-600 rounded-xl py-1 px-4 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
                                 </td>
                             </tr>
                         ))}

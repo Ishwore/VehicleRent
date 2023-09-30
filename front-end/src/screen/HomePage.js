@@ -15,9 +15,18 @@ const HomePage = () => {
 
         const fetchVehicles = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/product?key=${key}`);
-                const data = await response.json();
-                setVehicles(data);
+                if (key) {
+                    const relatedResult = await fetch(`http://localhost:5000/api/product/search/${key}`);
+                    const relatedResultData = await relatedResult.json();
+                    setVehicles(relatedResultData);
+                } else {
+                    const response = await fetch(`http://localhost:5000/api/product/`);
+                    // const response = await fetch(`http://localhost:5000/api/product?key=${key}`);
+                    const data = await response.json();
+                    setVehicles(data);
+
+                }
+
 
                 // setImages(data);
                 // console.log(key, data);
@@ -100,7 +109,7 @@ const HomePage = () => {
                                     <button
                                         className="bg-red-700 text-white py-2 px-4 rounded-md font-medium hover:bg-red-800 hover:font-bold"
                                     >
-                                        Book Now
+                                        View Details
                                     </button>
                                 </Link>
                             </div>
@@ -110,7 +119,6 @@ const HomePage = () => {
                     :
                     <h1 className="mt-24 text-5xl ml-10  text-red-600 mb-44">No data found !</h1>
                 }
-                :
             </div>
         </div>
     );

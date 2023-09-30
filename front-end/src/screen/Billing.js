@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import KhaltiPaymentComponent from "./Khalti";
 
 const Billing = () => {
     const auth = localStorage.getItem('user');
@@ -7,8 +8,8 @@ const Billing = () => {
     const book = localStorage.getItem('bookingData');
     const vehicle = JSON.parse(vehicleData);
     const bookingData = JSON.parse(book);
-    const [b_amt, setB_amt] = useState('');
-    const [paid, setPaid] = useState('');
+    // const [b_amt, setB_amt] = useState('');
+    // const [paid, setPaid] = useState('');
     const [message, showMessage] = useState("");
     const navigate = useNavigate();
     useEffect(() => {
@@ -19,10 +20,10 @@ const Billing = () => {
         if (!(vehicle || bookingData)) {
             navigate('/')
         }
-        if (bookingData && bookingData.payment === 'cash') {
-            setB_amt(bookingData && bookingData.totalRent);
-            setPaid(0);
-        }
+        // if (bookingData && bookingData.payment === 'cash') {
+        //     setB_amt(bookingData && bookingData.totalRent);
+        //     setPaid(0);
+        // }
     }, [bookingData, navigate, auth, vehicle]);
     const bookHandle = async () => {
         // console.log(vehicle._id, bookingData.name, bookingData.address, bookingData.phone, bookingData.days, bookingData.v_quantity, bookingData.date, paid, bookingData.payment, bookingData.totalRent, b_amt);
@@ -34,9 +35,10 @@ const Billing = () => {
 
         const paymentMethod = bookingData.payment
         const vehicleId = vehicle._id
-        const rentDate = bookingData.date
+        const fromDate = bookingData.fromDate
+        const untilDate = bookingData.untilDate
         const rentDays = bookingData.days
-        const totalRent = b_amt
+        const totalRent = bookingData.totalRent
         const cancelMessage = " ";
         // const image = vehicle.image
         // const price = vehicle.price
@@ -44,11 +46,11 @@ const Billing = () => {
         // const vehicleId = vehicle._id
         // const vname = vehicle.name
         const bookingItems = { vname: vehicle.name, qty: bookingData.v_quantity, image: vehicle.image, price: vehicle.price, category: vehicle.category };
-        console.log(shippingAddress, paymentMethod, rentDate, rentDays, totalRent, bookingItems, cancelMessage, vehicleId);
+        console.log(shippingAddress, paymentMethod, fromDate, untilDate, rentDays, totalRent, bookingItems, cancelMessage, vehicleId);
 
         const result = await fetch('http://localhost:5000/api/booking', {
             method: 'post',
-            body: JSON.stringify({ shippingAddress, paymentMethod, rentDate, rentDays, vehicleId, totalRent, bookingItems, cancelMessage }),
+            body: JSON.stringify({ shippingAddress, paymentMethod, fromDate, untilDate, vehicleId, totalRent, bookingItems, cancelMessage }),
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${JSON.parse(auth).token}`,
@@ -109,8 +111,12 @@ const Billing = () => {
                                     <td>{vehicle && vehicle._id}</td>
                                 </tr>
                                 <tr>
-                                    <td>Rent Date : </td>
-                                    <td>{bookingData && bookingData.date}</td>
+                                    <td>From Date : </td>
+                                    <td>{bookingData && bookingData.fromDate}</td>
+                                </tr>
+                                <tr>
+                                    <td>Until Date : </td>
+                                    <td>{bookingData && bookingData.untilDate}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -145,7 +151,7 @@ const Billing = () => {
                                     <td> <span className='font-extralight text-base mx-2'> NRs. </span>{bookingData && bookingData.totalRent}</td>
                                 </tr>
 
-                                <tr>
+                                {/* <tr>
                                     <td>Paid Amount:</td>
                                     <td> - <span className='font-extralight text-base mx-2'> NRs. </span>{paid}</td>
                                 </tr>
@@ -158,9 +164,11 @@ const Billing = () => {
                                 <tr>
                                     <td>Total Bill Amount </td>
                                     <td><span className='font-extralight text-base mx-2'> NRs. </span>{b_amt}</td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
+                        {/* <span className="mt-3"></span> */}
+                        {/* {bookingData && bookingData.payment === 'khalti' && <KhaltiPaymentComponent />} */}
 
                     </div>
                 </div>

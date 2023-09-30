@@ -103,6 +103,7 @@ const ViewVehicle = () => {
     return (
         <div className="inline-grid mt-20 ">
             <button onClick={handleGoBack} className="rounded text-white text-left w-20 px-2 ml-10 bg-red-400 hover:bg-red-600 hover:font-semibold">Go Back</button>
+            <span className="bg-yellow-600 text-white rounded py-2 px-3 mt-3 font-bold">Information : Stock is Available on Your Rent Date! </span>
             <div className="grid grid-cols-2 gap-3  mt-5">
                 <div className="col-span-1 ml-5 w-auto justify-center ">
                     <img
@@ -111,7 +112,9 @@ const ViewVehicle = () => {
                         className="w-max h-96 rounded-xl object-cover px-5 py-4 bg-stone-200"
                     />
                 </div>
+
                 <div className="col-span-1 grid grid-cols-2 ">
+
                     <div className=" col-span-1 text-left mt-5 w-auto">
                         <div className=" mt-5 border-b  border-gray-300">
                             <span className="text-lg font-normal text-gray-500 ">{name.toUpperCase()}</span>
