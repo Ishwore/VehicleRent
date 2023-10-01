@@ -3,8 +3,7 @@ const router = express.Router()
 const {
   addBookingItems,
   getBookingById,
-  updateOrderToPaid,
-  updateOrderToDelivered,
+  updateBookingToPaid,
   getMyBookings,
   getBookings,
   bookingCancel,
@@ -20,7 +19,6 @@ router.route('/bookings/:v_id').get(protect, getBookingsByProductId)
 router.route('/:id').get(protect, getBookingById)
 router.route('/update/:id').put(protect, updateMyBookings)
 router.route('/cancel/:id').post(protect, bookingCancel)
-router.route('/:id/pay').put(protect, updateOrderToPaid)
-router.route('/:id/deliver').put(protect, admin, updateOrderToDelivered)
+router.route('/:id/pay').put(protect, updateBookingToPaid)
 
 module.exports = router;

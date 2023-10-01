@@ -59,11 +59,27 @@ const bookingSchema = mongoose.Schema(
 
     },
     paymentResult: {
-      id: { type: String },
-      status: { type: String },
-      update_time: { type: String },
-      email_address: { type: String },
-      paidAmt: { type: Number },
+      idx: {
+        type: String,
+
+      },
+      email_address: {
+        type: String,
+
+      },
+      paidAmt: {
+        type: Number,
+
+      },
+      token: {
+        type: String,
+
+      },
+      user: {
+        type: String,
+
+      },
+
     },
     paidAt: {
       type: Date,

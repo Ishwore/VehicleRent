@@ -380,7 +380,7 @@ const ViewBooking = () => {
                                     <td colSpan="2" style={{ borderBottom: "1px solid black" }}></td>
                                 </tr>
                                 <tr>
-                                    <td >Total Rent Price  </td>
+                                    <td >Total Bill Amount  </td>
                                     <td> <span className='font-extralight text-base mx-2'> NRs. </span>{bookingDetail.totalRent} </td>
                                 </tr>
 
@@ -395,7 +395,7 @@ const ViewBooking = () => {
                                     <td colSpan="2" style={{ borderBottom: "1px solid black" }}></td>
                                 </tr>
                                 <tr>
-                                    <td >Total Bill Amount </td>
+                                    <td >Total Paidable Amount </td>
                                     <td> <span className='font-extralight text-base mx-2'> NRs. </span>{bookingDetail.isPaid ? <>0</> : <> {bookingDetail.totalRent}</>} </td>
                                 </tr>
                             </tbody>

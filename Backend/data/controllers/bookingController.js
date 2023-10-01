@@ -72,49 +72,28 @@ const bookingCancel = asyncHandler(async (req, res) => {
     throw new Error('Booking not found')
   }
 })
-// @desc    Update order to paid
-// @route   GET /api/orders/:id/pay
+// @desc    Update booking to paid
+// @route   GET /api/booking/:id/pay
 // @access  Private
-const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
+const updateBookingToPaid = asyncHandler(async (req, res) => {
+  const booking = await Booking.findById(req.params.id)
+  const { paymentResult } = req.body
+  console.log(paymentResult);
+  if (booking) {
+    booking.isPaid = true
+    booking.paidAt = Date.now()
+    booking.paymentMethod = 'wallet payment'
+    booking.paymentResult = paymentResult
 
-  if (order) {
-    order.isPaid = true
-    order.paidAt = Date.now()
-    order.paymentResult = {
-      id: req.body.id,
-      status: req.body.status,
-      update_time: req.body.update_time,
-      email_address: req.body.payer.email_address,
-    }
+    const updatedBooking = await booking.save()
 
-    const updatedOrder = await order.save()
-
-    res.json(updatedOrder)
+    res.json(updatedBooking)
   } else {
     res.status(404)
-    throw new Error('Order not found')
+    throw new Error('Booking not found')
   }
 })
 
-// @desc    Update order to delivered
-// @route   GET /api/orders/:id/deliver
-// @access  Private/Admin
-const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id)
-
-  if (order) {
-    order.isDelivered = true
-    order.deliveredAt = Date.now()
-
-    const updatedOrder = await order.save()
-
-    res.json(updatedOrder)
-  } else {
-    res.status(404)
-    throw new Error('Order not found')
-  }
-})
 
 // @desc    Get logged in user booking
 // @route   GET /api/booking//mybookings
@@ -174,8 +153,7 @@ module.exports = {
   addBookingItems,
   getBookingById,
   bookingCancel,
-  updateOrderToPaid,
-  updateOrderToDelivered,
+  updateBookingToPaid,
   getMyBookings,
   getBookings,
   getBookingsByProductId,

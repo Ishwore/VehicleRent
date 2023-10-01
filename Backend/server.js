@@ -9,6 +9,8 @@ const cardRoutes = require('./routes/cardRoutes.js')
 const bookingRoutes = require('./routes/bookingRoutes')
 const uploadRoutes = require('./routes/uploadRoutes.js')
 const userRoutes = require('./routes/userRoutes.js')
+const khaltiRoutes = require('./routes/khaltiRoutes.js')
+
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js')
 connectDB();
 
@@ -26,6 +28,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/booking', bookingRoutes)
 app.use('/api/card', cardRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/khalti', khaltiRoutes)
 
 
 // const __dirname = path.resolve()

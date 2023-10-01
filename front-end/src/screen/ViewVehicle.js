@@ -90,9 +90,13 @@ const ViewVehicle = () => {
             });
             const resultData = await result.json();
             showMessage(resultData.message);
+
         } else {
             showMessage("Enter your reviews ")
         }
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
 
     }
 
@@ -185,7 +189,7 @@ const ViewVehicle = () => {
                     <div className="  mx-4 mt-4">
                         <h2 className=" font-semibold text-2xl text-left"> WRITE A CUSTOMER REVIEW</h2>
                         <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
-                        {auth ? <form>
+                        {auth ? <div>
                             <div className=" text-left mt-3">
                                 <label className="text-left ml-2 mt-5">Rating  </label><br />
                                 <select className="mt-5 mb-5 h-10 w-72" value={rating} onChange={(e) => setRating(e.target.value)} required>
@@ -205,7 +209,7 @@ const ViewVehicle = () => {
 
                                 <input type="submit" onClick={sendReviews} className="mt-5 bg-yellow-600 px-3 py-3 text-white rounded" value="Submit" />
                             </div>
-                        </form> : (
+                        </div> : (
                             <p className=" mt-4 bg-green-200 py-3 px-3 rounded">
                                 Please <Link to="/login" className=" underline text-green-400 hover:text-lg mx-2"> Login </Link> to write a review{" "}
                             </p>
