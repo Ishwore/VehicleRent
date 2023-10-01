@@ -38,7 +38,7 @@ const MyBookingList = () => {
         const answer = window.confirm("You want to Cancel Booking !");
         if (answer === true) {
             const userMessage = window.prompt("Please enter a message for your cancellation:");
-            if (userMessage !== null) {
+            if (userMessage !== '') {
                 const cancel = true;
                 const cancelMessage = userMessage;
                 // console.log(cancel, cancelMessage, id);
@@ -68,6 +68,10 @@ const MyBookingList = () => {
                 showMessage(" Enter cancellation message !");
 
             }
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
             // navigate(`/cancelbooking/${id}`);
             // const result = await fetch(`http://localhost:5000/api/product/${id}`, {
             //     method: 'Delete',
@@ -92,7 +96,7 @@ const MyBookingList = () => {
 
 
     return (
-        <form className="inline-grid mt-6 ">
+        <div className="inline-grid mt-6 ">
             <div >
                 <h1 className="text-red-400 font-bold text-2xl">My Booking List</h1>
                 <span>{message !== '' && <p className="mt-4 text-slate-200 bg-red-400 rounded"> <span className=" font-semibold">Message</span> : {message} !</p>}</span>
@@ -142,7 +146,7 @@ const MyBookingList = () => {
 
                 </div>
             </div>
-        </form>
+        </div>
     )
 }
 

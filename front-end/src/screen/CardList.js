@@ -46,12 +46,14 @@ const CardList = () => {
         const data = await response.json();
         if (data) {
             alert("Card remove ");
+            window.location.reload();
         }
+
     }
 
 
     return (
-        <form className="inline-grid mt-6 ">
+        <div className="inline-grid mt-6 ">
             <div >
                 <h1 className="text-red-400 font-bold text-2xl">My Card List</h1>
                 <div className="inline-grid">
@@ -94,7 +96,7 @@ const CardList = () => {
 
                 </div>
             </div>
-        </form>
+        </div>
     )
 }
 

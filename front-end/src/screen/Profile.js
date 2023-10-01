@@ -47,16 +47,19 @@ const Profile = () => {
                 });
                 const resultData = await result.json();
                 if (resultData.message) {
-                    setprofileMessage(resultData.message)
+                    showMessage(resultData.message)
                 } else {
                     // console.log(resultData);
                     localStorage.setItem("user", JSON.stringify(resultData));
-                    setprofileMessage("Succsessful Change Password !");
+                    showMessage("Succsessful Change Password !");
                 }
             }
         } else {
             showMessage("Fullfill Form Input")
         }
+        setTimeout(() => {
+            window.location.reload();
+        }, 1000);
     }
     const handleShowProfile = () => {
         setShowChangeProfile(true);
@@ -158,11 +161,16 @@ const Profile = () => {
             } else {
                 // console.log(resultData);
                 localStorage.setItem("user", JSON.stringify(resultData));
+                setprofileMessage("successfully Profile Picture change ")
             }
 
         } else {
             setprofileMessage("Choose Profile Picture ")
         }
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
 
 
     }
@@ -261,7 +269,7 @@ const Profile = () => {
 
                                 <h2 className="text-2xl text-red-500 font-bold mb-10 mt-5">Profile Picture Update</h2>
                                 <span >{profileMessage !== '' && <p className="mt-3 text-slate-200 bg-red-400 rounded mx-20 py-2 "> <span className=" font-semibold">Message</span> : {profileMessage} !</p>}</span>
-                                <form className="mb-20">
+                                <div className="mb-20">
                                     <div className=' mt-14'>
                                         <label> Profile Picture : </label>
                                         <input type='file' className=' ml-6 px-3' onChange={(e) => imageUpload(e)} required />
@@ -271,7 +279,7 @@ const Profile = () => {
                                             Change Profile Picture
                                         </button>
                                     </div>
-                                </form>
+                                </div>
 
 
 
