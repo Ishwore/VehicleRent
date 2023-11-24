@@ -103,9 +103,18 @@ const ViewVehicle = () => {
     const getImageUrl = (imageName) => {
         return `http://localhost:5000${imageName}`;
     };
+    const bookHandle = () => {
+        if (auth !== '') {
+            navigate(`/book/${params.id}`);
+        } else {
+            navigate('/login');
+        }
+
+
+    }
     const cardHandle = async (id, name, category, image, price, description, registrationNo) => {
         // const id = num;
-        if (auth) {
+        if (auth && auth !== '') {
             const vehicle_id = id;
             const user_id = JSON.parse(auth)._id;
             console.log(vehicle_id, user_id, name, category, image, price, description, registrationNo);
@@ -182,14 +191,10 @@ const ViewVehicle = () => {
 
 
                         <div className="flex text-white mb-3 mt-4 ml-4 justify-between">
-                            <Link to={`/book/${params.id}`}>
-                                <button className="w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full">
-                                    Book Now
-                                </button>
-                            </Link>
-                            {/* <Link to="/home" className="w-24 mr-8 rounded-xl h-12 text-center font-semibold mt-5 pt-2.5 mb-3 bg-red-600 hover:bg-red-800 hover:text-lg hover:font-bold hover:rounded-full">
-                            Cancel
-                        </Link> */}
+
+                            <button onClick={bookHandle} className="w-36 ml-3 rounded-xl h-12 text-center font-semibold mt-5 mb-3 bg-green-600 hover:bg-green-800 hover:text-lg hover:font-bold hover:rounded-full">
+                                Book Now
+                            </button>
                         </div>
                     </div>
                 </div>

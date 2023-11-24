@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Chart from "react-apexcharts";
 
 const Dashbord = () => {
     const auth = localStorage.getItem('user');
@@ -197,13 +198,117 @@ const Dashbord = () => {
 
     }, [Vehicles, allBookings, bus, jeeps, users, vans, cars])
 
+
+    console.log(carQty, busQty, vanQty, jeepQty);
+    const carqty = 6;
+    const busqty = 10;
+    const vanqty = 5;
+    const jeepqty = 9;
+
+    const [state] = useState({
+        options: {
+            colors: ['#F44336', '#E91E63', '#9C27B0'],
+            chart: {
+                id: "basic-bar"
+            },
+            xaxis: {
+                categories: ['Car', 'Bus', 'Van', 'Jeep']
+            }
+        },
+        series: [
+            {
+                data: [carqty, busqty, vanqty, jeepqty]
+            }
+        ]
+    }
+    )
+
+    const [bookingState] = useState({
+        options: {
+            colors: ['#F44336', '#E91E63', '#9C27B0'],
+            chart: {
+                id: "basic-bar"
+            },
+            xaxis: {
+                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            }
+        },
+        series: [
+            {
+                name: "Booking",
+                data: [25, 20, 27, 29, 24, 17, 30]
+
+            },
+            {
+                name: 'Cancel',
+                data: [0, 1, 3, 0, 3, 1, 0]
+            }
+        ]
+    }
+    )
+
+    // console.log(state.series);
+    console.log(bookingQty);
+    const [Rating] = useState({
+        options: {},
+        series: [5, 95],
+        labels: ['A', 'B']
+    }
+    )
+
+
     return (
         <div className="inline-grid mt-16 bg-slate-300 w-full">
             <div className=" mt-4">
-                <h1 className='text-center font-extrabold text-2xl text-stone-600 pt-4 '>Dashbord</h1>
+                <h1 className='text-center font-extrabold text-2xl text-stone-600 pt-4  mb-6'>Dashbord</h1>
             </div>
-            <div className=' flex w-full mt-10 py-10'>
-                <div className='w-3/12'>
+            <div className='w-full flex'>
+                <div className='w-4/12'>
+                    <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
+                        <h1 className='text-red-500 text-3xl font-bold'>Vehicles Statics</h1> <br />
+                        <div className="mixed-chart">
+                            <Chart
+                                options={state.options}
+                                series={state.series}
+                                type="bar"
+                                width="400"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                <div className='w-4/12'>
+                    <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
+                        <h1 className='text-red-500 text-3xl font-bold'>Booking Statics</h1> <br />
+                        <div className="mixed-chart">
+                            <Chart
+                                options={bookingState.options}
+                                series={bookingState.series}
+                                type="line"
+                                width="400"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                <div className='w-4/12'>
+                    <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
+                        <h1 className='text-red-500 text-3xl font-bold'>Positive Review</h1> <br />
+                        <div className="mixed-chart">
+                            <Chart
+                                options={Rating.options}
+                                series={Rating.series}
+                                type="donut"
+                                width="400"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            {/* <div className='w-3/12'>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
                         <h1 className='text-red-500 text-3xl font-bold'>Car</h1> <br />
                         <h1 h1 className='text-red-600 '>
@@ -211,8 +316,8 @@ const Dashbord = () => {
                         <h1 className='text-lg mt-6 text-red-500'>Total : {carQty} </h1>
 
                     </div>
-                </div>
-                <div className='w-3/12 '>
+                </div> */}
+            {/* <div className='w-3/12 '>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
                         <h1 className='text-red-500 text-3xl font-bold'>Bus</h1> <br />
                         <h1 h1 className='text-red-600'>
@@ -220,8 +325,8 @@ const Dashbord = () => {
                         <h1 className='text-lg mt-6 text-red-500'>Total : {busQty}</h1>
 
                     </div>
-                </div>
-                <div className='w-3/12'>
+                </div> */}
+            {/* <div className='w-3/12'>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
                         <h1 className='text-red-500 text-3xl font-bold'>Jeep</h1> <br />
                         <h1 h1 className='text-red-600'>
@@ -231,8 +336,8 @@ const Dashbord = () => {
                         <h1 className='text-lg mt-6 text-red-500'>Total : {jeepQty} </h1>
 
                     </div>
-                </div>
-                <div className='w-3/12 '>
+                </div> */}
+            {/* <div className='w-3/12 '>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
                         <h1 className='text-red-500 text-3xl font-bold'>Van</h1> <br />
 
@@ -246,28 +351,27 @@ const Dashbord = () => {
                     </div>
                 </div>
 
-
-            </div>
+*/}
             <div className=' flex w-full mt-10 py-10'>
-                <div className='w-3/12'>
+                <div className='w-4/12'>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
-                        <h1 className='text-red-500 text-3xl font-bold'>Users</h1> <br />
+                        <h1 className='text-red-500 text-3xl font-bold'>Anually Users</h1> <br />
                         <h1 h1 className='text-red-600 '>
                             <i className="bi bi-person-circle text-6xl"> </i> </h1>
-                        <h1 className='text-lg mt-6 text-red-500'>Total : {userQty}</h1>
+                        <h1 className='text-lg mt-6 text-red-500'> {userQty}K+</h1>
 
                     </div>
                 </div>
-                <div className='w-3/12 '>
+                {/* <div className='w-4/12 '>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
-                        <h1 className='text-red-500 text-3xl font-bold'>Vehicles Booking</h1> <br />
+                        <h1 className='text-red-500 text-3xl font-bold'>Positive Rating</h1> <br />
                         <h1 h1 className='text-red-600'>
                             <i className="bi bi-bookmarks text-6xl"></i> </h1>
                         <h1 className='text-lg mt-6 text-red-500'>Total : {bookingQty} </h1>
 
                     </div>
-                </div>
-                <div className='w-3/12'>
+                </div> */}
+                <div className='w-4/12'>
                     <div className='mx-4 py-4 bg-slate-100 rounded-2xl'>
                         <h1 className='text-red-500 text-3xl font-bold'>Total Vehicle</h1> <br />
                         <h1 h1 className='text-red-600'>

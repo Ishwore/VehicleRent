@@ -5,6 +5,8 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, showMessage] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const [isValidName, setIsValidName] = useState(false);
     // const [Image, setImage] = useState("");
     const [confirmpassword, setconfirmPassword] = useState("");
     const navigate = useNavigate();
@@ -19,36 +21,66 @@ const SignUp = () => {
         //console.warn(name, email, password);
         e.preventDefault()
         const image = '';
-        if (!(name === '' || email === '' || password === '' || confirmpassword === ' ')) {
-            if (password !== confirmpassword) {
-                showMessage('Passwords are not match')
+        const validateEmail = () => {
+            // Define a regular expression pattern for the desired format
+            const pattern = /^[A-Za-z0-9._%+-]+@gmail\.com$/;
+
+            // Use the test() method to check if the email matches the pattern
+            if (pattern.test(email) && !email.startsWith('-')) {
+                setIsValid(true);
             } else {
-                const result = await fetch('http://localhost:5000/api/users', {
-                    method: 'post',
-                    body: JSON.stringify({ name, email, password, image }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-
-                })
-                const resultData = await result.json()
-                //  console.warn(resultData);
-                if (resultData.message) {
-                    showMessage(resultData.message);
-                    // console.log(message);
-                } else {
-                    localStorage.setItem('user', JSON.stringify(resultData));
-                    // window.location.reload();
-                    navigate('/');
-                }
-
-
-                // localStorage.setItem("user", JSON.stringify(resultData));
-                // navigate('/');
-
+                setIsValid(false);
             }
+        };
+        validateEmail();
+        const validateName = () => {
+            // Define a regular expression pattern for alphabetic characters
+            const pattern = /^[A-Za-z]+$/;
+
+            // Use the test() method to check if the name matches the pattern
+            if (pattern.test(name)) {
+                setIsValidName(true);
+            } else {
+                setIsValidName(false);
+            }
+        };
+        validateName();
+        if (isValidName === true || isValid === true) {
+
+            if (!(name === '' || email === '' || password === '' || confirmpassword === ' ')) {
+                if (password !== confirmpassword) {
+                    showMessage('Passwords are not match')
+                } else {
+                    const result = await fetch('http://localhost:5000/api/users', {
+                        method: 'post',
+                        body: JSON.stringify({ name, email, password, image }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+
+                    })
+                    const resultData = await result.json()
+                    //  console.warn(resultData);
+                    if (resultData.message) {
+                        showMessage(resultData.message);
+                        // console.log(message);
+                    } else {
+                        localStorage.setItem('user', JSON.stringify(resultData));
+                        // window.location.reload();
+                        navigate('/');
+                    }
+
+
+                    // localStorage.setItem("user", JSON.stringify(resultData));
+                    // navigate('/');
+
+                }
+            } else {
+                showMessage("Please fill form input ")
+            }
+
         } else {
-            showMessage("Please fill form input ")
+            showMessage("Name is only Character and Email only like aryan@gmail.com")
         }
 
 

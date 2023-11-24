@@ -30,20 +30,20 @@ const UserList = () => {
     }, [auth]);
 
     console.warn(users);
-    const deleteUser = async (id) => {
-        const answer = window.confirm("You want to delete User !");
-        if (answer === true) {
-            const result = await fetch(`http://localhost:5000/api/users/${id}`, {
-                method: 'Delete',
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(auth).token}`,
-                },
-            });
-            if (result) {
-                alert("User delete Successfully");
-            }
-        }
-    }
+    // const deleteUser = async (id) => {
+    //     const answer = window.confirm("You want to delete User !");
+    //     if (answer === true) {
+    //         const result = await fetch(`http://localhost:5000/api/users/${id}`, {
+    //             method: 'Delete',
+    //             headers: {
+    //                 Authorization: `Bearer ${JSON.parse(auth).token}`,
+    //             },
+    //         });
+    //         if (result) {
+    //             alert("User delete Successfully");
+    //         }
+    //     }
+    // }
     // const updateUser = async (id) => {
     //     const answer = window.confirm("You want to update User Details !");
     //     if (answer === true) {
@@ -83,7 +83,7 @@ const UserList = () => {
                                     <Link to={"/viewuser/" + result._id} ><button className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>View</button></Link>
                                     {/* <button onClick={() => updateUser(result._id)} className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button> */}
                                     {/* <Link to={"/updateuser/" + result._id} ><button className='mx-2 bg-stone-600 rounded-xl px-4 py-1 font-medium hover:bg-stone-700 hover:font-bold'>Update</button></Link> */}
-                                    <button onClick={() => deleteUser(result._id)} className='mx-2 bg-red-600 rounded-xl py-1 px-4 font-medium hover:bg-red-700 hover:font-bold'>Delete</button>
+                                    {/* <button onClick={() => deleteUser(result._id)} className='mx-2 bg-red-600 rounded-xl py-1 px-4 font-medium hover:bg-red-700 hover:font-bold'>Delete</button> */}
                                 </td>
                             </tr>
                         ))}

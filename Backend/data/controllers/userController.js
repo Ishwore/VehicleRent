@@ -44,7 +44,7 @@ const sendMail = asyncHandler(async (req, res) => {
       service: "gmail",
       auth: {
         user: 'chaudharyishwore@gmail.com',
-        pass: 'ffuvuysbjvamtxxg'
+        pass: 'isicwnwupnuxrqhv'
       }
     });
 

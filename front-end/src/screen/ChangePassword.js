@@ -16,26 +16,30 @@ const ChangePassword = () => {
         const id = JSON.parse(auth)._id;
         console.log(password, confirmpassword);
         if (!(password === '' || confirmpassword === ' ')) {
-            if (password !== confirmpassword) {
-                showMessage('Password and Confirm Password are not match')
+            if (password.length <= 7) {
+                showMessage('Password must be at least 8 characters long')
             } else {
-                const result = await fetch(`http://localhost:5000/api/users/profile/${id}`, {
-                    method: 'put',
-                    body: JSON.stringify({ password }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${JSON.parse(auth).token}`,
-                    },
-                });
-                const resultData = await result.json();
-                if (resultData.message) {
-                    showMessage(resultData.message)
+                if (password !== confirmpassword) {
+                    showMessage('Password and Confirm Password are not match')
                 } else {
-                    // console.log(resultData);
-                    navigate('/login');
-                    localStorage.removeItem('ForgetPass');
-                    alert("Succsessfully Forget Password Change ");
+                    const result = await fetch(`http://localhost:5000/api/users/profile/${id}`, {
+                        method: 'put',
+                        body: JSON.stringify({ password }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${JSON.parse(auth).token}`,
+                        },
+                    });
+                    const resultData = await result.json();
+                    if (resultData.message) {
+                        showMessage(resultData.message)
+                    } else {
+                        // console.log(resultData);
+                        navigate('/login');
+                        localStorage.removeItem('ForgetPass');
+                        alert("Succsessfully Forget Password Change ");
 
+                    }
                 }
             }
         } else {

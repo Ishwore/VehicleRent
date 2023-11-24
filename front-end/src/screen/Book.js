@@ -55,7 +55,7 @@ const Book = () => {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(auth).token}`,
+                    Authorization: `Bearer ${auth && JSON.parse(auth).token}`,
                 }
             });
             const resultData = await result.json();
@@ -113,26 +113,28 @@ const Book = () => {
             let rentDate2end = '';
             let qty1 = 0;
             let qty2 = 0;
-            let qty3 = 0;
-            let qty4 = 0;
+            // let qty3 = 0;
+            // let qty4 = 0;
 
             for (let i = 0; i < allBookingDetails.length; i++) {
                 rentDate2start = new Date(allBookingDetails[i].fromDate);
                 rentDate2end = new Date(allBookingDetails[i].untilDate);
-                if ((rentDate1start >= rentDate2start) || (rentDate1end <= rentDate2end)) {
+                if ((rentDate1start < rentDate2start) && (rentDate1end < rentDate2end)) {
                     qty1 += allBookingDetails[i].bookingItems[0].qty;
                 }
-                else if ((rentDate1start <= rentDate2end) || (rentDate1end >= rentDate2end)) {
+                else if ((rentDate1start > rentDate2end) && (rentDate1end > rentDate2end)) {
                     qty2 += allBookingDetails[i].bookingItems[0].qty;
-                }
-                else if ((rentDate1start <= rentDate2start) || (rentDate1end <= rentDate2end)) {
-                    qty3 += allBookingDetails[i].bookingItems[0].qty;
-                }
-                else if ((rentDate1start <= rentDate2start) || (rentDate1end >= rentDate2end)) {
-                    qty4 += allBookingDetails[i].bookingItems[0].qty;
                 } else {
 
                 }
+                // else if ((rentDate1start <= rentDate2start) || (rentDate1end <= rentDate2end)) {
+                //     qty3 += allBookingDetails[i].bookingItems[0].qty;
+                // }
+                // else if ((rentDate1start <= rentDate2start) || (rentDate1end >= rentDate2end)) {
+                //     qty4 += allBookingDetails[i].bookingItems[0].qty;
+                // } else {
+
+                // }
                 // if (rentDate1start <= rentDate2end && rentDate1end >= rentDate2start) {
                 //     qty1 += allBookingDetails[i].bookingItems[0].qty;
                 // } else if (rentDate1start <= rentDate2end) {
@@ -145,14 +147,16 @@ const Book = () => {
 
 
             }
-            totalQty = qty1 + qty2 + qty3 + qty4;
-            setMaxQty(stock - totalQty)
+            totalQty = qty1 + qty2;
+            console.log(totalQty);
+            setMaxQty(stock - totalQty);
+            console.log(maxQty);
         };
 
         calculateTotalQuantity();
 
 
-    }, [allBookingDetails, fromDate, untilDate, stock]);
+    }, [allBookingDetails, fromDate, untilDate, stock, maxQty]);
 
     console.log(maxQty);
 

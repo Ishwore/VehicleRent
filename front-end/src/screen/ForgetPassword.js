@@ -15,7 +15,7 @@ const ForgetPassword = () => {
         if (email !== '') {
             if (otp === '') {
                 const result = await fetch('http://localhost:5000/api/users/sendMail', {
-                    method: 'post',
+                    method: 'POST',
                     body: JSON.stringify({ email }),
                     headers: {
                         'Content-Type': 'application/json'
