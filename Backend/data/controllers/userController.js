@@ -43,8 +43,8 @@ const sendMail = asyncHandler(async (req, res) => {
       // port: 587,
       service: "gmail",
       auth: {
-        user: 'chaudharyishwore@gmail.com',
-        pass: 'isicwnwupnuxrqhv'
+        user: 'enter your gmail',
+        pass: 'enter your pass key'
       }
     });
 
